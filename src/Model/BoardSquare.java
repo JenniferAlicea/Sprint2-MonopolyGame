@@ -1,3 +1,7 @@
+/*
+Authors: Anthony Dayoub, Angel Lopez, Amanda McNesby, and Jennifer Alicea
+Course: CSCI 234 - Intro to Software Engineering
+ */
 package Model;
 
 
@@ -52,7 +56,7 @@ public class BoardSquare {
      * @param player the player to handle the action for
      */
     private void handleFreeParking(Player player) {
-        // Free Parking does not have an action. (free resting space)
+        player.updateBalance(0);
     }
 
 

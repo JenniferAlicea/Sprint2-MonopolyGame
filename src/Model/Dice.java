@@ -1,3 +1,7 @@
+/*
+Authors: Anthony Dayoub, Angel Lopez, Amanda McNesby, and Jennifer Alicea
+Course: CSCI 234 - Intro to Software Engineering
+ */
 package Model;
 
 import java.io.Serializable;
@@ -6,11 +10,11 @@ import Exceptions.IndexOutOfBoundsException;
 
 
 public class Dice {
-    private final Random random;
+    private static Random random;
     private static int die1;
     private static int die2;
-    private boolean isDouble;
-    private int totalDoubles = 0;
+    private static boolean isDouble;
+    private static int totalDoubles = 0;
 
     public Dice() {
         this.random = new Random();
@@ -23,7 +27,7 @@ public class Dice {
      *
      * @return
      */
-    public int roll() {
+    public static int roll() {
         try {
             die1 = random.nextInt(6) + 1; // Generates a number between 1 and 6
             die2 = random.nextInt(6) + 1;
@@ -44,7 +48,7 @@ public class Dice {
      * Returns the sum of both dice.
      * @return the total roll value.
      */
-    public int getTotal() {
+    public static int getTotal() {
         try {
             return die1 + die2;
         } catch (IndexOutOfBoundsException e) {

@@ -1,16 +1,20 @@
-import Model.Dice;
-import Model.Player;
-import Model.Property;
-import Model.Token;
-import Model.Tokens;
+/*
+Authors: Anthony Dayoub, Angel Lopez, Amanda McNesby, and Jennifer Alicea
+Course: CSCI 234 - Intro to Software Engineering
+ */
+import Model.*;
 
 import java.awt.Color;
 
 public class Main {
     public static void main(String[] args) {
-        Token token = new Token(Tokens.BOOT);
 
-        Player player = new Player("John Doe", 1500, token);
+
+
+        Player player = new Player("John Doe", 1500);
+
+        Token token = new Token(TokenIcons.BOOT, player);
+        player.setToken(token);
 
         Property property = new Property("Boardwalk", Color.BLUE);
 
@@ -19,6 +23,9 @@ public class Main {
 
         Dice dice = new Dice();
         int rollResult = dice.roll();
+
+        Gameboard gameboard = new Gameboard();
+        gameboard.getSpacesMoved(player, rollResult);
 
         System.out.println("Dice roll result: " + rollResult);
         System.out.println("Dice 1: " + Dice.getDie1());
