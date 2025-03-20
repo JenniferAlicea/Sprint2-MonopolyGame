@@ -1,49 +1,25 @@
+/*
+Authors: Anthony Dayoub, Angel Lopez, Amanda McNesby, and Jennifer Alicea
+Course: CSCI 234 - Intro to Software Engineering
+ */
 package Model;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class CommunityChestCards {
+public class CommunityChestCards extends Cards {
 
-    private final String chestDescription;
-    private final int chestEffect;
-    public ArrayList<CommunityChestCards> chestCards = new ArrayList<CommunityChestCards>();
+    public ArrayList<CommunityChestCards> chestCards = new ArrayList<>();
     public Random random = new Random();
 
-    /**
-     * Constructor for CommunityChestCards
-     * @param description
-     * @param effect
-     */
     public CommunityChestCards(String description, int effect) {
-        this.chestDescription = description;
-        this.chestEffect = effect;
-    }
-
-    /**
-     * Getters for CommunityChestCards
-     * @return
-     */
-    public String getCommunityChestDescription() {
-        return chestDescription;
-    }
-
-    public int getCommunityChestEffect() {
-        return chestEffect;
-    }
-
-    /**
-     * Apply the effect of the card to the player
-     * @param player
-     */
-    public void applyEffect(Player player) {
-        player.updateBalance(chestEffect);
+        super(description, effect);
     }
 
     /**
      * This method creates the deck of Community Chest cards
      */
-     public void CommunityChestDeck() {
+    public void CommunityChestDeck() {
         chestCards.add(new CommunityChestCards("Bank error in your favor – Collect $200", 200));
         chestCards.add(new CommunityChestCards("Doctor's fees – Pay $50", -50));
         chestCards.add(new CommunityChestCards("From sale of stock, you get $50", 50));
@@ -64,11 +40,18 @@ public class CommunityChestCards {
 
     /**
      * This method draws a card from the Community Chest deck
-     * @return
+     * @return the description of the card drawn
      */
     public String drawCard() {
-        return chestCards.get(random.nextInt(chestCards.size())).getCommunityChestDescription();
+        return chestCards.get(random.nextInt(chestCards.size())).getDescription();
     }
 
+    @Override
+    public void applyEffect(Player player) {
+        player.updateBalance(getEffect());
+    }
 
+    public ArrayList<CommunityChestCards> getChestCards() {
+        return chestCards;
+    }
 }

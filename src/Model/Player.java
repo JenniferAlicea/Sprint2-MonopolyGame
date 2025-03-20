@@ -1,7 +1,13 @@
+/*
+Authors: Anthony Dayoub, Angel Lopez, Amanda McNesby, and Jennifer Alicea
+Course: CSCI 234 - Intro to Software Engineering
+ */
 package Model;
 
 
+import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Player {
@@ -10,22 +16,124 @@ public class Player {
     private Token token;
     private int balance;
     private int boardPosition;
-    private List<BoardSquare> mortgagedProperties;
-    private List<BoardSquare> ownedProperties;
+    private List<Property> mortgagedProperties;
+    private List<Property> ownedProperties;
+    private List<Railroad> ownedRailroads;
+    private List<Railroad> mortgagedRailroads;
+    private List<Utility> ownedUtilities;
+    private List<Utility> mortgagedUtilities;
+    private List<Player> monopolyPlayers;
+    public HashMap<Color, Boolean> monopolies;
+    public Color Brown = new Color(58, 6, 6);
+    public Color LightBlue = new Color(3, 255, 255);
+    public Color DarkBlue = new Color(16, 41, 166);
 
     /**
      * Constructor for the Player class
      * @param name the name of the player
      * @param balance the initial balance of the player
      */
-    public Player(String name, int balance, Token token) {
+    public Player(String name, int balance) {
         this.name = name;
         this.balance = balance;
-        this.token = token;
-        this.boardPosition = 0;
-        this.token.assignToPlayer(this);
+        this.boardPosition = Token.getBoardPosition();
+        this.token = Token.assignToPlayer(this);
         this.mortgagedProperties = new ArrayList<>();
         this.ownedProperties = new ArrayList<>();
+        this.mortgagedRailroads = new ArrayList<>();
+        this.ownedRailroads = new ArrayList<>();
+        this.mortgagedUtilities = new ArrayList<>();
+        this.ownedUtilities = new ArrayList<>();
+        this.monopolyPlayers = new ArrayList<>();
+        this.monopolies = new HashMap<>();
+        monopolies.put(LightBlue, false);
+        monopolies.put(Brown, false);
+        monopolies.put(Color.PINK, false);
+        monopolies.put(Color.ORANGE, false);
+        monopolies.put(Color.RED, false);
+        monopolies.put(Color.YELLOW, false);
+        monopolies.put(Color.GREEN, false);
+        monopolies.put(DarkBlue, false);
+
+
+
+    }
+
+    public void setMonopolyPlayers(List<Player> monopolyPlayers) {
+        this.monopolyPlayers = monopolyPlayers;
+    }
+
+    public List<Player> getMonopolyPlayers() {
+        return monopolyPlayers;
+    }
+
+    /**
+     * check if a player has a monopoly from the properties they own
+     */
+    public void checkMonopoly () {
+        int lightBlueCount = 0;
+        int brownCount = 0;
+        int pinkCount = 0;
+        int orangeCount = 0;
+        int redCount = 0;
+        int yellowCount = 0;
+        int greenCount = 0;
+        int darkBlueCount = 0;
+
+        for (Property property : ownedProperties) {
+
+            if (property.getColor().equals(LightBlue)) {
+                lightBlueCount++;
+            }
+            if (property.getColor().equals(Brown)) {
+                brownCount++;
+            }
+            if (property.getColor().equals(Color.PINK)) {
+                pinkCount++;
+            }
+            if (property.getColor().equals(Color.ORANGE)) {
+                orangeCount++;
+            }
+            if (property.getColor().equals(Color.RED)) {
+                redCount++;
+            }
+            if (property.getColor().equals(Color.YELLOW)) {
+                yellowCount++;
+            }
+            if (property.getColor().equals(Color.GREEN)) {
+                greenCount++;
+            }
+            if (property.getColor().equals(DarkBlue)) {
+                darkBlueCount++;
+            }
+
+        }
+
+        if (lightBlueCount == 3) {
+            monopolies.put(LightBlue, true);
+        }
+        if (brownCount == 2) {
+            monopolies.put(Brown, true);
+        }
+        if (pinkCount == 3) {
+            monopolies.put(Color.PINK, true);
+        }
+        if (orangeCount == 3) {
+            monopolies.put(Color.ORANGE, true);
+        }
+        if (redCount == 3) {
+            monopolies.put(Color.RED, true);
+        }
+        if (yellowCount == 3) {
+            monopolies.put(Color.YELLOW, true);
+        }
+        if (greenCount == 3) {
+            monopolies.put(Color.GREEN, true);
+        }
+        if (darkBlueCount == 2) {
+            monopolies.put(DarkBlue, true);
+        }
+
     }
 
     /**
@@ -35,6 +143,15 @@ public class Player {
     public int getBoardPosition() {
         return boardPosition;
     }
+
+    /**
+     * Sets the Board Position of the player
+     * @param boardPosition the position to set
+     */
+    public void setBoardPosition(int boardPosition) {
+        this.boardPosition = boardPosition;
+    }
+
 
     /**
      * Gets the token for the player
@@ -116,7 +233,7 @@ public class Player {
      * Mortgages a property for the player
      * @param property the property to mortgage
      */
-    public void mortgageProperty(BoardSquare property) {
+    public void mortgageProperty(Property property) {
         mortgagedProperties.add(property);
     }
 
@@ -124,15 +241,49 @@ public class Player {
      * Unmortgages a property for the player
      * @param property the property to unmortgage
      */
-    public void unmortgageProperty(BoardSquare property) {
+    public void unmortgageProperty(Property property) {
         mortgagedProperties.remove(property);
     }
+
+    /**
+     * Mortgages a railroad for the player
+     * @param railroad the railroad to mortgage
+     */
+    public void mortgageRailroad(Railroad railroad) {
+        mortgagedRailroads.add(railroad);
+    }
+
+    /**
+     * Unmortgages a railroad for the player
+     * @param railroad the railroad to unmortgage
+     */
+    public void unmortgageRailroad(Railroad railroad) {
+        mortgagedRailroads.remove(railroad);
+    }
+
+    /**
+     * Mortgages a utility for the player
+     * @param utility the utility to mortgage
+     */
+    public void mortgageUtility(Utility utility) {
+        mortgagedUtilities.add(utility);
+    }
+
+    /**
+     * Unmortgages a utility for the player
+     * @param utility the utility to unmortgage
+     */
+
+    public void unmortgageUtility(Utility utility) {
+        mortgagedUtilities.remove(utility);
+    }
+
 
     /**
      * Gets the list of mortgaged properties for the player
      * @return the list of mortgaged properties
      */
-    public List<BoardSquare> getMortgagedProperties() {
+    public List<Property> getMortgagedProperties() {
         return mortgagedProperties;
     }
 
@@ -140,8 +291,47 @@ public class Player {
      * Gets the list of owned properties for the player
      * @return the list of owned properties
      */
-    public List<BoardSquare> getOwnedProperties() {
+    public List<Property> getOwnedProperties() {
         return ownedProperties;
+    }
+
+    /**
+     * Gets the list of mortgaged railroads for the player
+     * @return the list of mortgaged railroads
+     */
+
+    public List<Railroad> getMortgagedRailroads() {
+        return mortgagedRailroads;
+
+    }
+
+    /**
+     * Gets the list of owned railroads for the player
+     * @return the list of owned railroads
+     */
+
+    public List<Railroad> getOwnedRailroads() {
+        return ownedRailroads;
+
+    }
+
+    /**
+     * Gets the list of mortgaged utilities for the player
+     * @return the list of mortgaged utilities
+     */
+
+    public List<Utility> getMortgagedUtilities() {
+        return mortgagedUtilities;
+
+    }
+
+    /**
+     * Gets the list of owned utilities for the player
+     * @return the list of owned utilities
+     */
+
+    public List<Utility> getOwnedUtilities() {
+        return ownedUtilities;
     }
 
     /**
@@ -150,9 +340,5 @@ public class Player {
      */
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 }
