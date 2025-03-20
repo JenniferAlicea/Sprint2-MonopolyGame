@@ -234,7 +234,11 @@ public class Player {
      * @param property the property to mortgage
      */
     public void mortgageProperty(Property property) {
-        mortgagedProperties.add(property);
+        if (ownedProperties.contains(property) && !mortgagedProperties.contains(property)) {
+            mortgagedProperties.add(property);
+            ownedProperties.remove(property);
+            updateBalance(property.getMortgageValue());
+        }
     }
 
     /**
@@ -250,7 +254,11 @@ public class Player {
      * @param railroad the railroad to mortgage
      */
     public void mortgageRailroad(Railroad railroad) {
-        mortgagedRailroads.add(railroad);
+        if (ownedRailroads.contains(railroad) && !mortgagedRailroads.contains(railroad)) {
+            mortgagedRailroads.add(railroad);
+            ownedRailroads.remove(railroad);
+            updateBalance(railroad.getMortgageValue());
+        }
     }
 
     /**
@@ -266,7 +274,11 @@ public class Player {
      * @param utility the utility to mortgage
      */
     public void mortgageUtility(Utility utility) {
-        mortgagedUtilities.add(utility);
+        if (ownedUtilities.contains(utility) && !mortgagedUtilities.contains(utility)) {
+            mortgagedUtilities.add(utility);
+            ownedUtilities.remove(utility);
+            updateBalance(utility.getMortgageValue());
+        }
     }
 
     /**
