@@ -1,3 +1,7 @@
+/*
+Authors: Anthony Dayoub, Angel Lopez, Amanda McNesby, and Jennifer Alicea
+Course: CSCI 234 - Intro to Software Engineering
+ */
 import Model.BoardSquare;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -46,4 +50,6 @@ public class BoardSquaretests {
         boardSquare.setSpacePosition(39);
         assertEquals(39, boardSquare.getPosition());
     }
+
+
 }

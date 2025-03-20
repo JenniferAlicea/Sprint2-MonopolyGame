@@ -1,3 +1,7 @@
+/*
+Authors: Anthony Dayoub, Angel Lopez, Amanda McNesby, and Jennifer Alicea
+Course: CSCI 234 - Intro to Software Engineering
+ */
 import Model.Dice;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,10 +20,11 @@ public class DiceTests {
     /**
      * Test to verify that the dice roll result is between 1 and 6.
      */
+
     @Test
     public void testRoll() {
-        int rollResult = dice.roll();
-        assertTrue(rollResult >= 2 && rollResult <= 12, "Roll result should be between 2 and 12");
+        int roll = dice.roll();
+        assertTrue(roll >= 2 && roll <= 12, "Roll should be between 2 and 12");
     }
 
     /**
