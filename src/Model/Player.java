@@ -290,6 +290,33 @@ public class Player {
         mortgagedUtilities.remove(utility);
     }
 
+    /**
+     * Checks if a mortgaged property is paid off
+     * @param property the property to check
+     * @return true if the property is paid off, false otherwise
+     */
+    public boolean isMortgagePaidOff(Property property) {
+        return !mortgagedProperties.contains(property);
+    }
+
+    /**
+     * Checks if a mortgaged railroad is paid off
+     * @param railroad the railroad to check
+     * @return true if the railroad is paid off, false otherwise
+     */
+    public boolean isMortgagePaidOff(Railroad railroad) {
+        return !mortgagedRailroads.contains(railroad);
+    }
+
+    /**
+     * Checks if a mortgaged utility is paid off
+     * @param utility the utility to check
+     * @return true if the utility is paid off, false otherwise
+     */
+    public boolean isMortgagePaidOff(Utility utility) {
+        return !mortgagedUtilities.contains(utility);
+    }
+
 
     /**
      * Gets the list of mortgaged properties for the player
