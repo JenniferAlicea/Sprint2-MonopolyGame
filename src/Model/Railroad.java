@@ -9,9 +9,22 @@ public class Railroad extends BoardSquare {
      * Constructor for the Railroad class
      * @param name the name of the railroad
      */
-    public Railroad(String name) {
-        super(name, 0);
+    private int rent;
+    private int mortgageValue;
+    private int position;
+    public Railroad(String name, int rent, int mortgageValue, int position) {
+        super(name, position);
+        this.rent = rent;
+        this.mortgageValue = mortgageValue;
 
+    }
+
+    public int getRent() {
+        return rent;
+    }
+
+    public int getMortgageValue() {
+        return mortgageValue;
     }
 
 }

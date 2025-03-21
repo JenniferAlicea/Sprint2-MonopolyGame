@@ -8,18 +8,46 @@ import java.awt.*;
 
 public class Property extends BoardSquare {
     private Color color;
+    private TitleDeedCard titleDeedCard;
+    private int Position;
 
     /**
      * Constructor for the Property class
-     * @param name the name of the property
+     *
+     * @param name  the name of the property
      * @param color the color of the property
      */
-    public Property(String name, Color color) {
-        super(name, 0);
-        this.color = color;
+    public Property(String name, Color color, TitleDeedCard titleDeedCard, int position){
+            super(name, position);
+            this.color = color;
+            this.titleDeedCard = titleDeedCard;
+        }
+
+
+    public Color getColor() {
+        return color;
     }
 
+    public TitleDeedCard getTitleDeedCard() {
+        return titleDeedCard;
 
+    }
 
-    public Color getColor() { return color; }
+    public int getPosition() {
+        return Position;
+
+    }
+
+    /**
+     * returns the mortgage value of the property
+     * @return the mortgage value of the property
+     */
+    public int getMortgageValue() {
+        return titleDeedCard.getMortgageValue();
+    }
 }
+
+
+
+
+
