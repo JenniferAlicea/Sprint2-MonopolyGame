@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+
 public class Player {
 
     private String name;
@@ -27,6 +28,7 @@ public class Player {
     public Color Brown = new Color(58, 6, 6);
     public Color LightBlue = new Color(3, 255, 255);
     public Color DarkBlue = new Color(16, 41, 166);
+    private int mortgageValue;
 
     /**
      * Constructor for the Player class
@@ -46,6 +48,7 @@ public class Player {
         this.ownedUtilities = new ArrayList<>();
         this.monopolyPlayers = new ArrayList<>();
         this.monopolies = new HashMap<>();
+        this.mortgageValue = TitleDeedCard.getMortgageValue();
         monopolies.put(LightBlue, false);
         monopolies.put(Brown, false);
         monopolies.put(Color.PINK, false);
