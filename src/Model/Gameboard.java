@@ -30,6 +30,7 @@ public class Gameboard {
         Color Brown = new Color(58, 6, 6);
         Color LightBlue = new Color(3, 255, 255);
         Color DarkBlue = new Color(16, 41, 166);
+
         squares.add(new BoardSquare("Go", 0));
         squares.add(new Property("Mediterranean Avenue", Brown));
         squares.add(new BoardSquare("Community Chest Card", 0));
