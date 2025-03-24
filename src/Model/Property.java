@@ -9,7 +9,7 @@ import java.awt.*;
 public class Property extends BoardSquare {
     private Color color;
     private TitleDeedCard titleDeedCard;
-    private int Position;
+    private int position;
 
     /**
      * Constructor for the Property class
@@ -34,7 +34,7 @@ public class Property extends BoardSquare {
     }
 
     public int getPosition() {
-        return Position;
+        return position;
 
     }
 

@@ -8,6 +8,7 @@ public class TitleDeedCard {
     private Color color;
     private int cost;
     private int rent;
+    private int monopolyRent;
     private int withOneHouse;
     private int withTwoHouses;
     private int withThreeHouses;
@@ -20,7 +21,7 @@ public class TitleDeedCard {
 
 
 
-    public TitleDeedCard(String name, Color color,int cost, int rent, int withOneHouse, int withTwoHouses, int withThreeHouses, int withFourHouses, int withHotel, int monopolyHouseCost, int monopolyHotelCost, int mortgageValue) {
+    public TitleDeedCard(String name, Color color,int cost, int rent, int monopolyRent, int withOneHouse, int withTwoHouses, int withThreeHouses, int withFourHouses, int withHotel, int monopolyHouseCost, int monopolyHotelCost, int mortgageValue) {
         this.name = name;
         this.color = color;
         this.cost = cost;
