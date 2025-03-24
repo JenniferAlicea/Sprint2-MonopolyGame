@@ -90,9 +90,9 @@ public class PlayerTests {
      */
     @Test
     public void testHasLightBlueMonopoly() {
-        player.getOwnedProperties().add(new Property("Connecticut Avenue", LightBlue));
-        player.getOwnedProperties().add(new Property("Vermont Avenue", LightBlue));
-        player.getOwnedProperties().add(new Property("Oriental Avenue", LightBlue));
+        player.getOwnedProperties().add(new Property("Connecticut Avenue", LightBlue, new TitleDeedCard("Connecticut Avenue", LightBlue, 120, 8, 16, 40, 100, 300, 450, 600, 50, 50, 30), 1));
+        player.getOwnedProperties().add(new Property("Vermont Avenue", LightBlue, new TitleDeedCard("Vermont Avenue", LightBlue, 100, 6, 12, 30, 90, 270, 400, 550, 50, 50, 50), 1));
+        player.getOwnedProperties().add(new Property("Oriental Avenue", LightBlue, new TitleDeedCard("Oriental Avenue", LightBlue, 100, 6, 12, 30, 90, 270, 400, 550, 50, 50, 50), 1));
         player.checkMonopoly();
         assertEquals(true, player.monopolies.get(LightBlue));
         assertEquals(false, player.monopolies.get(Color.GREEN));
@@ -107,7 +107,7 @@ public class PlayerTests {
     @Test
     public void testMortgageProperty() {
         Player player = new Player("John Doe", 1500);
-        Property property = new Property("Boardwalk", Color.BLUE);
+        Property property = new Property("Boardwalk", Color.BLUE, new TitleDeedCard("Boardwalk", Color.BLUE, 400, 50, 100, 200, 600, 1400, 1700, 2000, 200, 200, 200), 39);
         player.mortgageProperty(property);
         assertEquals(1, player.getMortgagedProperties().size());
         assertEquals(property, player.getMortgagedProperties().get(0));
@@ -118,7 +118,7 @@ public class PlayerTests {
     @Test
     public void testMortgageRailroad() {
         Player player = new Player("John Doe", 1500);
-        Railroad railroad = new Railroad("Reading Railroad");
+        Railroad railroad = new Railroad("Reading Railroad", 25, 100, 5, 50, 100, 200);
         player.mortgageRailroad(railroad);
         assertEquals(1, player.getMortgagedRailroads().size());
         assertEquals(railroad, player.getMortgagedRailroads().get(0));
@@ -129,7 +129,7 @@ public class PlayerTests {
     @Test
     public void testMortgageUtility() {
         Player player = new Player("John Doe", 1500);
-        Utility utility = new Utility("Electric Company");
+        Utility utility = new Utility("Electric Company", 150, 75, 12, false);
         player.mortgageUtility(utility);
         assertEquals(1, player.getMortgagedUtilities().size());
         assertEquals(utility, player.getMortgagedUtilities().get(0));

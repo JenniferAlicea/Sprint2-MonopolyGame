@@ -16,7 +16,10 @@ public class Main {
         Token token = new Token(TokenIcons.BOOT, player);
         player.setToken(token);
 
-        Property property = new Property("Boardwalk", Color.BLUE);
+        Property property = new Property("Boardwalk", Color.BLUE, new
+                TitleDeedCard("Boardwalk", Color.BLUE, 400, 50,
+                100, 200, 600, 1400,
+                1700, 2000, 200, 200, 200), 39);
 
 
         player.updateBalance(-200);
