@@ -26,6 +26,7 @@ public class TitleDeedCard {
         this.color = color;
         this.cost = cost;
         this.rent = rent;
+        this.monopolyRent = monopolyRent;
         this.withOneHouse = withOneHouse;
         this.withTwoHouses = withTwoHouses;
         this.withThreeHouses = withThreeHouses;
