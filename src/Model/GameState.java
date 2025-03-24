@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameState {
+    private static final int MIN_PLAYERS = 2;
     private static final int MAX_PLAYERS = 4;
     private List<Player> players;
     private int currentPlayerIndex;
@@ -18,7 +19,7 @@ public class GameState {
     }
 
     public boolean addPlayer(Player player) {
-        if (players.size() < MAX_PLAYERS) {
+        if (players.size() < MAX_PLAYERS && players.size() >= MIN_PLAYERS) {
             players.add(player);
             return true;
         } else {
