@@ -2,10 +2,7 @@
 Authors: Anthony Dayoub, Angel Lopez, Amanda McNesby, and Jennifer Alicea
 Course: CSCI 234 - Intro to Software Engineering
  */
-import Model.Player;
-import Model.Property;
-import Model.Token;
-import Model.TokenIcons;
+import Model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -105,5 +102,38 @@ public class PlayerTests {
         assertEquals(false, player.monopolies.get(Color.PINK));
         assertEquals(false, player.monopolies.get(Brown));
         assertEquals(false, player.monopolies.get(DarkBlue));
+    }
+
+    @Test
+    public void testMortgageProperty() {
+        Player player = new Player("John Doe", 1500);
+        Property property = new Property("Boardwalk", Color.BLUE);
+        player.mortgageProperty(property);
+        assertEquals(1, player.getMortgagedProperties().size());
+        assertEquals(property, player.getMortgagedProperties().get(0));
+        //TODO: Test for player balance going up after getMortgageValue() is implemented
+        //assertEquals(1500 + property.getMortgageValue(), player.getBalance());
+    }
+
+    @Test
+    public void testMortgageRailroad() {
+        Player player = new Player("John Doe", 1500);
+        Railroad railroad = new Railroad("Reading Railroad");
+        player.mortgageRailroad(railroad);
+        assertEquals(1, player.getMortgagedRailroads().size());
+        assertEquals(railroad, player.getMortgagedRailroads().get(0));
+        //TODO: Test for player balance going up after getMortgageValue() is implemented
+        //assertEquals(1500 + railroad.getMortgageValue(), player.getBalance());
+    }
+
+    @Test
+    public void testMortgageUtility() {
+        Player player = new Player("John Doe", 1500);
+        Utility utility = new Utility("Electric Company");
+        player.mortgageUtility(utility);
+        assertEquals(1, player.getMortgagedUtilities().size());
+        assertEquals(utility, player.getMortgagedUtilities().get(0));
+        //TODO: Test for player balance going up after getMortgageValue() is implemented
+        //assertEquals(1500 + ultility.getMortgageValue(), player.getBalance());
     }
 }
