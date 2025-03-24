@@ -13,11 +13,11 @@ public class BoardSquare {
      * Constructor for the BoardSquare class
      *
      * @param name the name of the board square
-     * @param i
+     * @param position the position of the board square
      */
-    public BoardSquare(String name, int i) {
+    public BoardSquare(String name, int position) {
         this.name = name;
-        this.position = 0;
+        this.position = position;
     }
 
     /**

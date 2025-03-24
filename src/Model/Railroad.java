@@ -15,7 +15,7 @@ public class Railroad extends BoardSquare {
     private int threeRailroadRent;
     private int fourRailroadRent;
     private int mortgageValue;
-    private int position;
+
     public Railroad(String name, int rent, int mortgageValue, int position, int twoRailroadRent, int threeRailroadRent, int fourRailroadRent) {
         super(name, position);
         cost = 200;

@@ -10,7 +10,6 @@ package Model;
 public class Utility extends BoardSquare {
     private int rent;
     private int mortgageValue;
-    private int position;
     private int cost;
 
 
@@ -27,10 +26,6 @@ public class Utility extends BoardSquare {
 
     public int getMortgageValue() {
         return mortgageValue;
-    }
-
-    public int getPosition() {
-        return position;
     }
 
     public int getCost() {

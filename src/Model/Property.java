@@ -9,7 +9,7 @@ import java.awt.*;
 public class Property extends BoardSquare {
     private Color color;
     private TitleDeedCard titleDeedCard;
-    private int position;
+
 
     /**
      * Constructor for the Property class
@@ -41,10 +41,7 @@ public class Property extends BoardSquare {
         return titleDeedCard.getCost();
     }
 
-    public int getPosition() {
-        return position;
 
-    }
 
     /**
      * returns the mortgage value of the property
