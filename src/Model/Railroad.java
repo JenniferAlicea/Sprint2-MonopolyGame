@@ -35,4 +35,8 @@ public class Railroad extends BoardSquare {
         return mortgageValue;
     }
 
+    public int getCost() {
+        return cost;
+    }
+
 }

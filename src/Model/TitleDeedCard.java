@@ -49,6 +49,10 @@ public class TitleDeedCard {
         return rent;
     }
 
+    public int getCost() {
+        return cost;
+    }
+
     public int getWithOneHouse() {
         return withOneHouse;
     }

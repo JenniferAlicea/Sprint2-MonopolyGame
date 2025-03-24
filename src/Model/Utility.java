@@ -11,12 +11,14 @@ public class Utility extends BoardSquare {
     private int rent;
     private int mortgageValue;
     private int position;
+    private int cost;
 
 
     public Utility(String name, int rent, int mortgageValue, int position, boolean isAllOwned) {
         super(name, position);
         this.rent = rent;
         this.mortgageValue = mortgageValue;
+        this.cost = 150;
     }
 
     public int getRent() {
@@ -25,6 +27,14 @@ public class Utility extends BoardSquare {
 
     public int getMortgageValue() {
         return mortgageValue;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public int getCost() {
+        return cost;
     }
 
 

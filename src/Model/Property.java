@@ -33,6 +33,14 @@ public class Property extends BoardSquare {
 
     }
 
+    public int getRent() {
+        return titleDeedCard.getRent();
+    }
+
+    public int getCost() {
+        return titleDeedCard.getCost();
+    }
+
     public int getPosition() {
         return position;
 
@@ -46,6 +54,8 @@ public class Property extends BoardSquare {
         return titleDeedCard.getMortgageValue();
     }
 }
+
+
 
 
 

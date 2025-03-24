@@ -107,7 +107,11 @@ public class PlayerTests {
     @Test
     public void testMortgageProperty() {
         Player player = new Player("John Doe", 1500);
-        Property property = new Property("Boardwalk", Color.BLUE, new TitleDeedCard("Boardwalk", Color.BLUE, 400, 50, 100, 200, 600, 1400, 1700, 2000, 200, 200, 200), 39);
+        Property property = new Property("Boardwalk", Color.BLUE, new TitleDeedCard("Boardwalk",
+                Color.BLUE, 400, 50, 100, 200, 600,
+                1400, 1700, 2000, 200,
+                200, 200), 39);
+        player.buyProperty(property);
         player.mortgageProperty(property);
         assertEquals(1, player.getMortgagedProperties().size());
         assertEquals(property, player.getMortgagedProperties().get(0));
@@ -118,18 +122,22 @@ public class PlayerTests {
     @Test
     public void testMortgageRailroad() {
         Player player = new Player("John Doe", 1500);
-        Railroad railroad = new Railroad("Reading Railroad", 25, 100, 5, 50, 100, 200);
+        Railroad railroad = new Railroad("Reading Railroad", 25, 100, 5,
+                50, 100, 200);
+        player.buyRailroad(railroad);
         player.mortgageRailroad(railroad);
         assertEquals(1, player.getMortgagedRailroads().size());
         assertEquals(railroad, player.getMortgagedRailroads().get(0));
-        //TODO: Test for player balance going up after getMortgageValue() is implemented
-        //assertEquals(1500 + railroad.getMortgageValue(), player.getBalance());
-    }
+        // TODO: Test for player balance going up after getMortgageValue() is implemented
+        // assertEquals(1500 + railroad.getMortgageValue(), player.getBalance());
+}
 
     @Test
     public void testMortgageUtility() {
         Player player = new Player("John Doe", 1500);
-        Utility utility = new Utility("Electric Company", 150, 75, 12, false);
+        Utility utility = new Utility("Electric Company", 150, 75,
+                12, false);
+        player.buyUtility(utility);
         player.mortgageUtility(utility);
         assertEquals(1, player.getMortgagedUtilities().size());
         assertEquals(utility, player.getMortgagedUtilities().get(0));

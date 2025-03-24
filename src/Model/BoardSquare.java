@@ -43,13 +43,8 @@ public class BoardSquare {
         player.updateBalance(salary);
     }
 
-    /**
-     * Handles the jail action of the board square
-     * @param player the player to handle the action for
-     */
-    private void handleJail(Player player) {
-        player.isVisitingJail();
-    }
+
+
 
     /**
      * Handles the free parking action of the board square
@@ -60,10 +55,7 @@ public class BoardSquare {
     }
 
 
-    // Go to Jail is a special case where the player is sent to jail
-    private void handleGoToJail(Player player) {
-        player.sendToJail();
-    }
+
 
 
 
