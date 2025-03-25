@@ -213,83 +213,7 @@ public class Player {
         balance -= amount;
     }
 
-    /**
-     * Buys a property for the player
-     *
-     * @param titleDeedCards the property to buy
-     */
-    public void buyProperty(Property titleDeedCards) {
-        if (balance >= titleDeedCards.getCost()) {
-            ownedProperties.add(titleDeedCards);
-            updateBalance(-titleDeedCards.getCost());
-        }
-    }
 
-    /**
-     * Buys a railroad for the player
-     *
-     * @param railroad the railroad to buy
-     */
-    public void buyRailroad(Railroad railroad) {
-        if (balance >= railroad.getCost()) {
-            ownedRailroads.add(railroad);
-            updateBalance(-railroad.getCost());
-        }
-
-    }
-
-    /**
-     * Buys a utility for the player
-     *
-     * @param utility the utility to buy
-     */
-
-    public void buyUtility(Utility utility) {
-        if (balance >= utility.getCost()) {
-            ownedUtilities.add(utility);
-            updateBalance(-utility.getCost());
-        }
-    }
-
-    /**
-     * Pays rent to another player
-     *
-     * @param owner          the owner of the property
-     * @param titleDeedCards the property for which rent is being paid
-     */
-    public void payRentProperty(Player owner, Property titleDeedCards) {
-        updateBalance(-titleDeedCards.getRent());
-        owner.updateBalance(titleDeedCards.getRent());
-    }
-
-    /**
-     * Pays rent to another player
-     *
-     * @param owner    the owner of the property
-     * @param railroad the railroad for which rent is being paid
-     */
-    public void payRentRailroad(Player owner, Railroad railroad) {
-        updateBalance(-railroad.getRent());
-        owner.updateBalance(railroad.getRent());
-    }
-
-    /**
-     * Pays rent to another player
-     *
-     * @param owner   the owner of the property
-     * @param utility the utility for which rent is being paid
-     */
-    public void payRentUtility(Player owner, Utility utility) {
-        updateBalance(-utility.getRent());
-        owner.updateBalance(utility.getRent());
-    }
-
-
-    /**
-     * Mortgages a property for the player
-     *
-     * @param property the property to mortgage
-     */
     public void mortgageProperty(Property property) {
         if (ownedProperties.contains(property) && !mortgagedProperties.contains(property)) {
             mortgagedProperties.add(property);
@@ -321,14 +245,6 @@ public class Player {
         }
     }
 
-    /**
-     * Unmortgages a railroad for the player
-     *
-     * @param railroad the railroad to unmortgage
-     */
-    public void unmortgageRailroad(Railroad railroad) {
-        mortgagedRailroads.remove(railroad);
-    }
 
     /**
      * Mortgages a utility for the player
@@ -342,47 +258,6 @@ public class Player {
             updateBalance(utility.getMortgageValue());
         }
     }
-
-    /**
-     * Unmortgages a utility for the player
-     *
-     * @param utility the utility to unmortgage
-     */
-
-    public void unmortgageUtility(Utility utility) {
-        mortgagedUtilities.remove(utility);
-    }
-
-    /**
-     * Checks if a mortgaged property is paid off
-     *
-     * @param property the property to check
-     * @return true if the property is paid off, false otherwise
-     */
-    public boolean isMortgagePropertyPaidOff(Property property) {
-        return !mortgagedProperties.contains(property);
-    }
-
-    /**
-     * Checks if a mortgaged railroad is paid off
-     *
-     * @param railroad the railroad to check
-     * @return true if the railroad is paid off, false otherwise
-     */
-    public boolean isMortgageRailroadPaidOff(Railroad railroad) {
-        return !mortgagedRailroads.contains(railroad);
-    }
-
-    /**
-     * Checks if a mortgaged utility is paid off
-     *
-     * @param utility the utility to check
-     * @return true if the utility is paid off, false otherwise
-     */
-    public boolean isMortgageUtilityPaidOff(Utility utility) {
-        return !mortgagedUtilities.contains(utility);
-    }
-
 
     /**
      * Gets the list of mortgaged properties for the player

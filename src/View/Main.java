@@ -39,23 +39,6 @@ public class Main {
             System.out.println(square.getName());
 
         }
-        player.buyProperty((Property) list.get(1));
-        player.buyProperty((Property) list.get(3));
-        System.out.println("Properties owned by player: ");
-        for(int i = player.getOwnedProperties().size() - 1; i >= 0; i--){
-            System.out.println(player.getOwnedProperties().get(i).getName());
-        }
-        player.checkMonopoly();
-        for (Color color : player.getMonopolies().keySet()) {
-            if (player.getMonopolies().get(color))
-                System.out.println("Player has a monopoly in " + color);
-        }
-
-        System.out.println("Player Balance: " + player.getBalance());
-        System.out.print("Mortgage value of " + player.getOwnedProperties().get(1).getName() + ": ");
-        System.out.println(player.getOwnedProperties().get(1).getMortgageValue());
-        player.mortgageProperty((Property) list.get(1));
-        System.out.println("Player Balance after mortgaging: " + player.getBalance());
 
 
     }

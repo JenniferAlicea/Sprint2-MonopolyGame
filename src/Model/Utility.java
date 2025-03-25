@@ -33,5 +33,19 @@ public class Utility extends BoardSquare {
     }
 
 
+    @Override
+    public void landedOn(Player player, GameState gameState) {
+        int diceRoll = Dice.roll();
+        int numUtilitiesOwned = player.getOwnedUtilities().size();
+        int rentOwed = 0;
 
+        if (numUtilitiesOwned == 1) {
+            rentOwed = diceRoll * 4;
+        } else if (numUtilitiesOwned == 2) {
+            rentOwed = diceRoll * 10;
+        }
+
+        player.updateBalance(-rentOwed);
+        gameState.getBank().updateBalance(rentOwed);
+    }
 }

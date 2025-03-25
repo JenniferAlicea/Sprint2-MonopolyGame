@@ -73,6 +73,9 @@ public class TitleDeedCard {
         return withHotel;
     }
 
+    public int getMonopolyRent() {
+        return monopolyRent;
+    }
     public int getMonopolyHouseCost() {
         return monopolyHouseCost;
     }

@@ -3,6 +3,7 @@ Authors: Anthony Dayoub, Angel Lopez, Amanda McNesby, and Jennifer Alicea
 Course: CSCI 234 - Intro to Software Engineering
  */
 import Model.BoardSquare;
+import Model.GoSpace;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +15,7 @@ public class BoardSquaretests {
 
     @BeforeEach
     public void setUp() {
-        boardSquare = new BoardSquare("Go", 0);
+        boardSquare = new GoSpace("Go", 0);
     }
 
     /**
@@ -33,23 +34,6 @@ public class BoardSquaretests {
         assertEquals(0, boardSquare.getPosition());
     }
 
-    /**
-     * Test to verify setting a new name for the board square.
-     */
-    @Test
-    public void testSetName() {
-        boardSquare.setSpaceName("Boardwalk");
-        assertEquals("Boardwalk", boardSquare.getName());
-    }
-
-    /**
-     * Test to verify setting a new position for the board square.
-     */
-    @Test
-    public void testSetPosition() {
-        boardSquare.setSpacePosition(39);
-        assertEquals(39, boardSquare.getPosition());
     }
 
 
-}

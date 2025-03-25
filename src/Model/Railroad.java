@@ -27,6 +27,8 @@ public class Railroad extends BoardSquare {
 
     }
 
+
+
     public int getRent() {
         return rent;
     }
@@ -39,4 +41,21 @@ public class Railroad extends BoardSquare {
         return cost;
     }
 
+    @Override
+    public void landedOn(Player player, GameState gameState) {
+
+        int numRailroadsOwned = player.getOwnedRailroads().size();
+        int rentOwed = 0;
+        if (numRailroadsOwned == 1) {
+            rentOwed = rent;
+        } else if (numRailroadsOwned == 2) {
+            rentOwed = twoRailroadRent;
+        } else if (numRailroadsOwned == 3) {
+            rentOwed = threeRailroadRent;
+        } else if (numRailroadsOwned == 4) {
+            rentOwed = fourRailroadRent;
+        }
+        player.updateBalance(-rentOwed);
+        gameState.getBank().updateBalance(rentOwed);
+    }
 }

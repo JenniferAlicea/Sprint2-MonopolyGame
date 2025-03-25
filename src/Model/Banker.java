@@ -31,4 +31,13 @@ public class Banker {
     public void loanMoney(Player player, int amount) {
 
     }
+
+    public void collectMortgage(Player player) {
+
+    }
+
+    public void updateBalance(int player) {
+
+
+    }
 }
