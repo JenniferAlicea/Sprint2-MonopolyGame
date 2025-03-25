@@ -3,8 +3,6 @@ Authors: Anthony Dayoub, Angel Lopez, Amanda McNesby, and Jennifer Alicea
 Course: CSCI 234 - Intro to Software Engineering
  */
 package Model;
-import Model.Gameboard;
-import Model.TokenIcons;
 
 public class Token{
     private final TokenIcons type;
@@ -32,6 +30,18 @@ public class Token{
 
     public static int getBoardPosition(){
         return boardPosition;
+    }
+
+    public void sendToJail(boolean b) {
+        boardPosition = 10;
+    }
+
+    public void payLuxuryTax() {
+        owner.updateBalance(-75);
+    }
+
+    public void payIncomeTax() {
+        owner.updateBalance(-200);
     }
 
     public void setBoardPosition(int position) {
