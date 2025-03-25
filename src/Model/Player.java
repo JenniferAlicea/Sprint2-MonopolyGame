@@ -39,7 +39,7 @@ public class Player {
         this.name = name;
         this.balance = balance;
         this.boardPosition = Token.getBoardPosition();
-        this.token = Token.assignToPlayer(this);
+        this.token = Token.assignToPlayer(this, TokenIcons.values()[0]);
         this.mortgagedProperties = new ArrayList<>();
         this.ownedProperties = new ArrayList<>();
         this.mortgagedRailroads = new ArrayList<>();
