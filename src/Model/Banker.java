@@ -5,8 +5,11 @@ public class Banker {
     private int houses = 32;
     private int hotels = 12;
 
-    public void auctionProperty(BoardSquare property) {
+    public Banker(TitleDeedCard[] titleDeedCards) {
+        this.titleDeedCards = titleDeedCards;
+    }
 
+    public void auctionProperty(BoardSquare property) {
     }
 
     public void sellProperty(BoardSquare property, Player player) {
@@ -26,22 +29,6 @@ public class Banker {
     }
 
     public void loanMoney(Player player, int amount) {
-
-    }
-
-    public void collectTaxes(Player player) {
-
-    }
-
-    public void collectFines(Player player) {
-
-    }
-
-    public void collectLoans(Player player) {
-
-    }
-
-    public void collectInterest(Player player) {
 
     }
 }
