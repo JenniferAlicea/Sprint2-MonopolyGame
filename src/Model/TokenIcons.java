@@ -9,15 +9,15 @@ package Model;
  * Enum class to represent the different types of tokens in the game
  */
 public enum TokenIcons {
-    TOP_HAT,
-    THIMBLE,
-    IRON,
-    BOOT,
-    BATTLESHIP,
-    CANNON,
-    RACE_CAR,
-    SCOTTIE_DOG,
-    WHEELBARROW
+    TOP_HAT("tokens/tophat.png"),
+    THIMBLE("tokens/thimble.png"),
+    IRON("tokens/iron.png"),
+    BOOT("tokens/boot.png"),
+    BATTLESHIP("tokens/battleship.png"),
+    CANNON("tokens/cannon.png"),
+    RACE_CAR("tokens/racecar.png"),
+    SCOTTIE_DOG("tokens/scottiedog.png"),
+    WHEELBARROW("tokens/wheelbarrow.png");
 
     private final String path;
 
@@ -28,4 +28,4 @@ public enum TokenIcons {
     public String getPath() {
         return path;
     }
-}
+    }
