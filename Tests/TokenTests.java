@@ -22,7 +22,7 @@ public class TokenTests {
     @Test
     void assignToPlayerSetsOwner() {
         Player newPlayer = new Player("NewPlayer", 1500);
-        token.assignToPlayer(newPlayer);
+        token.assignToPlayer(newPlayer, TokenIcons.BOOT);
         assertEquals(newPlayer, token.getOwner());
     }
 
