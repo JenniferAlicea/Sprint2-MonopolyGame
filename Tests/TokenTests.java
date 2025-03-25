@@ -39,4 +39,5 @@ public class TokenTests {
     void getTypeReturnsCorrectType() {
         assertEquals(TokenIcons.BOOT, token.getType());
     }
+
 }

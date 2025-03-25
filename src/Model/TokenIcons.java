@@ -18,4 +18,14 @@ public enum TokenIcons {
     RACE_CAR,
     SCOTTIE_DOG,
     WHEELBARROW
+
+    private final String path;
+
+    TokenIcons(String path) {
+        this.path = path;
+    }
+
+    public String getPath() {
+        return path;
+    }
 }

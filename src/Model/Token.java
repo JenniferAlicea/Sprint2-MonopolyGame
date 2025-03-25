@@ -4,11 +4,15 @@ Course: CSCI 234 - Intro to Software Engineering
  */
 package Model;
 
+import javax.swing.*;
+import java.awt.*;
+
 public class Token{
     private final TokenIcons type;
     private static Player owner;
     private static int boardPosition;
     private static Gameboard gameboard = new Gameboard();
+    private ImageIcon icon;
 
 
 
@@ -16,12 +20,25 @@ public class Token{
         this.type = type;
         Token.owner = owner;
         boardPosition = gameboard.getSpacesMoved(owner, 0);
+        this.icon = loadTokenIcon();
+    }
+
+    private ImageIcon loadTokenIcon() {
+        String path = type.getPath();
+        ImageIcon icon = new ImageIcon(path);
+        icon.setImage(icon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH));
+        return icon;
     }
 
 
-    public static Token assignToPlayer(Player player) {
-        owner = player;
-        return owner.getToken();
+    public static Token assignToPlayer(Player player, TokenIcons iconType) {
+        Token token = new Token(iconType, player);
+        player.setToken(token);
+        return token;
+    }
+
+    public ImageIcon getIcon() {
+        return icon;
     }
 
     public Player getOwner() {
