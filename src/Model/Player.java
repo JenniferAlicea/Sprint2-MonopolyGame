@@ -335,4 +335,16 @@ public class Player {
     public HashMap<Color, Boolean> getMonopolies() {
         return monopolies;
     }
+
+    /**
+     * Moves the player by a specified number of spaces
+     * @param spaces the number of spaces to move
+     * @return true if the player passed Go during this move
+     */
+    public boolean move(int spaces) {
+        int oldPosition = this.boardPosition;
+        this.boardPosition = (oldPosition + spaces) % 40;
+
+        return oldPosition + spaces >= 40;
+    }
 }

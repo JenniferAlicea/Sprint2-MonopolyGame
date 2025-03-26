@@ -1,7 +1,8 @@
 package Model;
 
 public class GoSpace extends BoardSquare {
-    private int goMoney;
+    public static final int GO_MONEY = 200;
+    private int goMoney = GO_MONEY;
 
     public GoSpace(String go, int i) {
         super(go, i);
