@@ -56,6 +56,14 @@ public class Railroad extends BoardSquare {
             rentOwed = fourRailroadRent;
         }
         player.updateBalance(-rentOwed);
-        gameState.getBank().updateBalance(rentOwed);
+        gameState.getBank().updateBalance(player, rentOwed, "Railroad rent");
+    }
+
+    public void setOwner(Player owner) {
+        this.owner = owner;
+    }
+
+    public Player getOwner() {
+        return owner;
     }
 }

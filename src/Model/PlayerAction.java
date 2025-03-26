@@ -3,6 +3,8 @@ package Model;
 public enum PlayerAction {
     BUY_PROPERTY,
     AUCTION_PROPERTY,
+    PLACE_BID,
+    PASS_AUCTION,
     BUILD_HOUSE,
     BUILD_HOTEL,
     MORTGAGE_PROPERTY,

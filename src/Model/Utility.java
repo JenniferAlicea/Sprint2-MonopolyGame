@@ -11,6 +11,7 @@ public class Utility extends BoardSquare {
     private int rent;
     private int mortgageValue;
     private int cost;
+    private Player owner;
 
 
     public Utility(String name, int rent, int mortgageValue, int position, boolean isAllOwned) {
@@ -18,6 +19,7 @@ public class Utility extends BoardSquare {
         this.rent = rent;
         this.mortgageValue = mortgageValue;
         this.cost = 150;
+        this.owner = null;
     }
 
     public int getRent() {
@@ -30,6 +32,15 @@ public class Utility extends BoardSquare {
 
     public int getCost() {
         return cost;
+    }
+
+
+    public Player getOwner() {
+        return owner;
+    }
+    public Player setOwner(Player player) {
+        this.owner = player;
+        return player;
     }
 
 
@@ -46,6 +57,6 @@ public class Utility extends BoardSquare {
         }
 
         player.updateBalance(-rentOwed);
-        gameState.getBank().updateBalance(rentOwed);
+        gameState.getBank().updateBalance(player, rentOwed, "Utility Rent");
     }
 }

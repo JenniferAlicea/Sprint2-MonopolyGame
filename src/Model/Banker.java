@@ -67,6 +67,13 @@ public class Banker {
         }
     }
 
+    public void auctionProperty(BoardSquare property, GameState gameState) {
+    if (property instanceof Property || property instanceof Railroad || property instanceof Utility) {
+        System.out.println("The banker is auctioning " + property.getName());
+        gameState.startAuction(property);
+    }
+}
+
     public void loanMoney(Player player, int amount) {
         updateBalance(player, amount, "Bank loan");
     }

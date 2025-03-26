@@ -11,6 +11,11 @@ public class GameState {
     private Banker banker;
     private Gameboard board;
     private TurnPhase currentPhase;
+    private BoardSquare propertyUnderAuction;
+    private int currentBid;
+    private Player highestBidder;
+    private boolean auctionInProgress = false;
+    private List<Player> remainingBidders;
 
     public GameState() {
         players = new ArrayList<>();
@@ -217,6 +222,7 @@ public class GameState {
         }
     }
 
+
     private void mortgageProperty(Player player, Property property) {
         if (property.getOwner() == player && !property.isMortgaged()) {
             property.setMortgaged(true);
@@ -227,7 +233,7 @@ public class GameState {
 
     private void unmortgageProperty(Player player, Property property) {
         if (property.getOwner() == player && property.isMortgaged()) {
-            int unmortgageAmount = (int)(property.getMortgageValue() * 1.1); // 10% interest
+            int unmortgageAmount = (int) (property.getMortgageValue() * 1.1); // 10% interest
             if (player.getBalance() >= unmortgageAmount) {
                 player.updateBalance(-unmortgageAmount);
                 property.setMortgaged(false);
@@ -249,14 +255,165 @@ public class GameState {
         }
     }
 
-    public void firstRollForTurnOrder(){
+    public void startAuction(BoardSquare property) {
+        if (auctionInProgress) {
+            return;
+        }
+        propertyUnderAuction = property;
+        currentBid = 0;
+        highestBidder = null;
+        auctionInProgress = true;
+
+        remainingBidders = new ArrayList<>(players);
+
+        System.out.println("Auction started for " + property.getName());
+        System.out.println("Starting bid is $" + currentBid);
+
+        currentPhase = TurnPhase.AUCTION_PHASE;
+    }
+
+
+    public void firstRollForTurnOrder() {
         for (Player player : players) {
             Dice.roll();
             System.out.println("Player " + player.getName() + " rolled a " + Dice.getTotal());
         }
     }
 
-    public void playerTurnOrder(){
+    public void placeBid(Player player, int bidAmount) {
+        if (!auctionInProgress || !remainingBidders.contains(player)) {
+            return;
+        }
+
+        if (bidAmount <= currentBid) {
+            System.out.println(player.getName() + " bid too low. Must be higher than $" + currentBid);
+            return;
+        }
+
+        if (bidAmount > player.getBalance()) {
+            System.out.println(player.getName() + " cannot afford this bid");
+            return;
+        }
+
+        currentBid = bidAmount;
+        highestBidder = player;
+        System.out.println(player.getName() + " bids $" + currentBid);
+    }
+
+    public void passAuction(Player player) {
+        if (!auctionInProgress || !remainingBidders.contains(player)) {
+            return;
+        }
+
+        remainingBidders.remove(player);
+        System.out.println(player.getName() + " passes on the auction");
+
+        if (remainingBidders.size() == 1) {
+            // Last player automatically wins at current bid
+            completeAuction();
+        } else if (remainingBidders.isEmpty()) {
+            // No bidders left
+            cancelAuction();
+        }
+    }
+
+    private void completeAuction() {
+        if (!auctionInProgress) {
+            return;
+        }
+
+        if (highestBidder != null && currentBid > 0) {
+            System.out.println(highestBidder.getName() + " wins the auction for $" + currentBid);
+
+            // Update the player's balance and property ownership
+            highestBidder.updateBalance(-currentBid);
+
+            if (propertyUnderAuction instanceof Property) {
+                Property property = (Property) propertyUnderAuction;
+                property.setOwner(highestBidder);
+                highestBidder.getOwnedProperties().add(property);
+            } else if (propertyUnderAuction instanceof Railroad) {
+                Railroad railroad = (Railroad) propertyUnderAuction;
+                railroad.setOwner(highestBidder);
+                highestBidder.getOwnedRailroads().add(railroad);
+            } else if (propertyUnderAuction instanceof Utility) {
+                Utility utility = (Utility) propertyUnderAuction;
+                utility.setOwner(highestBidder);
+                highestBidder.getOwnedUtilities().add(utility);
+            }
+
+            highestBidder.checkMonopoly();
+        } else if (remainingBidders.size() == 1) {
+            // Last player standing gets the property at minimum price (can be configured)
+            Player winner = remainingBidders.get(0);
+            int minimumPrice = getMinimumPrice(propertyUnderAuction);
+            System.out.println(winner.getName() + " wins the auction at minimum price $" + minimumPrice);
+
+            winner.updateBalance(-minimumPrice);
+            if (propertyUnderAuction instanceof Property) {
+                Property property = (Property) propertyUnderAuction;
+                property.setOwner(winner);
+                winner.getOwnedProperties().add(property);
+            } else if (propertyUnderAuction instanceof Railroad) {
+                Railroad railroad = (Railroad) propertyUnderAuction;
+                railroad.setOwner(winner);
+                winner.getOwnedRailroads().add(railroad);
+            } else if (propertyUnderAuction instanceof Utility) {
+                Utility utility = (Utility) propertyUnderAuction;
+                utility.setOwner(winner);
+                winner.getOwnedUtilities().add(utility);
+            }
+            winner.checkMonopoly();
+        }
+
+        resetAuction();
+        currentPhase = TurnPhase.PLAYER_ACTIONS; // Return to normal game flow
+    }
+
+    private int getMinimumPrice(BoardSquare property) {
+        if (property instanceof Property) {
+            return ((Property) property).getPrice() / 2;
+        } else if (property instanceof Railroad) {
+            return ((Railroad) property).getCost() / 2;
+        } else if (property instanceof Utility) {
+            return ((Utility) property).getCost() / 2;
+        }
+        return 0;
+    }
+
+    private void cancelAuction() {
+        System.out.println("Auction canceled - no buyers for " + propertyUnderAuction.getName());
+        resetAuction();
+        currentPhase = TurnPhase.PLAYER_ACTIONS; // Return to normal game flow
+    }
+
+    private void resetAuction() {
+        propertyUnderAuction = null;
+        currentBid = 0;
+        highestBidder = null;
+        auctionInProgress = false;
+        remainingBidders = null;
+    }
+
+    // Add this method to handle the auction flow
+    public void processAuctionTurn(Player player, boolean placeBid, int bidAmount) {
+        if (!auctionInProgress || currentPhase != TurnPhase.AUCTION_PHASE) {
+            return;
+        }
+
+        if (placeBid) {
+            placeBid(player, bidAmount);
+        } else {
+            passAuction(player);
+        }
+
+        // Move to next bidder if auction still in progress
+        if (auctionInProgress && !remainingBidders.isEmpty()) {
+
+        }
+    }
+
+    public void playerTurnOrder() {
         int max = 0;
         int index = 0;
         for (int i = 0; i < players.size(); i++) {
