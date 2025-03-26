@@ -46,6 +46,6 @@ public class CommunityChestCardsTests {
     @Test
     void testCommunityChestDeckSize() {
         communityChestCards.CommunityChestDeck();
-        assertEquals(16, communityChestCards.getChestCards().size());
+        assertEquals(16, communityChestCards.getToBeDisplayedCommunityChestCards().size());
     }
 }

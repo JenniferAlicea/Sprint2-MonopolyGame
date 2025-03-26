@@ -1,13 +1,8 @@
-/*
-Authors: Anthony Dayoub, Angel Lopez, Amanda McNesby, and Jennifer Alicea
-Course: CSCI 234 - Intro to Software Engineering
- */
-
-import Model.Player;
-import Model.GameState;
-import Model.Dice;
+import Model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.awt.Color;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,11 +13,22 @@ public class GameStateTests {
     private Player player3;
     private Player player4;
     private Dice dice;
+    private Gameboard board;
+    private Banker banker;
 
     @BeforeEach
     void setUp() {
         gameState = new GameState();
         dice = new Dice();
+        board = new Gameboard();
+        TitleDeedCard[] titleDeeds = new TitleDeedCard[] {
+            new TitleDeedCard("Mediterranean Avenue", new Color(58, 6, 6), 60, 2, 4, 10, 30, 90, 160, 250, 50, 50, 30),
+            new TitleDeedCard("Baltic Avenue", new Color(58, 6, 6), 60, 4, 8, 20, 60, 180, 320, 450, 50, 50, 30)
+            // Add more TitleDeedCard instances as needed
+        };
+        banker = new Banker(titleDeeds);
+        gameState.setBoard(board);
+        gameState.setBanker(banker);
         player1 = new Player("Player1", 1500);
         player2 = new Player("Player2", 1500);
         player3 = new Player("Player3", 1500);
@@ -89,7 +95,7 @@ public class GameStateTests {
     void rollDiceUpdatesPhaseAndReturnsTotal() {
         int roll = gameState.rollDice();
         assertTrue(roll >= 2 && roll <= 12);
-        assertEquals(Model.TurnPhase.MOVE_TOKEN, gameState.getCurrentPhase());
+        assertEquals(TurnPhase.MOVE_TOKEN, gameState.getCurrentPhase());
     }
 
     @Test
@@ -101,7 +107,7 @@ public class GameStateTests {
         gameState.moveToken(5);
 
         assertEquals((initialPosition + 5) % 40, currentPlayer.getToken().getBoardPosition());
-        assertEquals(Model.TurnPhase.HANDLE_SQUARE_ACTION, gameState.getCurrentPhase());
+        assertEquals(TurnPhase.HANDLE_SQUARE_ACTION, gameState.getCurrentPhase());
     }
 
     @Test
@@ -123,11 +129,11 @@ public class GameStateTests {
         gameState.rollDice();
         gameState.moveToken(5);
         gameState.handleSquareAction();
-        gameState.performAction(Model.PlayerAction.END_TURN);
+        gameState.performAction(PlayerAction.END_TURN);
         gameState.endTurn();
 
         assertNotEquals(initialPlayer, gameState.getCurrentPlayer());
-        assertEquals(Model.TurnPhase.ROLL_DICE, gameState.getCurrentPhase());
+        assertEquals(TurnPhase.ROLL_DICE, gameState.getCurrentPhase());
     }
 
     @Test
@@ -150,7 +156,7 @@ public class GameStateTests {
     @Test
     void throwsExceptionWhenPerformingActionsInWrongPhase() {
         assertThrows(IllegalStateException.class, () ->
-                gameState.performAction(Model.PlayerAction.END_TURN));
+                gameState.performAction(PlayerAction.END_TURN));
     }
 
     @Test

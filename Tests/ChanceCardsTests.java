@@ -46,6 +46,6 @@ public class ChanceCardsTests {
     @Test
     void testChanceDeckSize() {
         chanceCards.ChanceDeck();
-        assertEquals(15, chanceCards.getChanceCards().size());
+        assertEquals(15, chanceCards.getToBeDisplayedChanceCards().size());
     }
 }
