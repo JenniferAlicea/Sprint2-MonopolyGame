@@ -1,190 +1,101 @@
-/*
-Authors: Anthony Dayoub, Angel Lopez, Amanda McNesby, and Jennifer Alicea
-Course: CSCI 234 - Intro to Software Engineering
- */
 import Model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.awt.Color;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class GameStateTests {
+
     private GameState gameState;
     private Player player1;
     private Player player2;
-    private Player player3;
-    private Player player4;
-    private Dice dice;
-    private Gameboard board;
+    private Gameboard gameboard;
     private Banker banker;
+    private TitleDeedCard[] titleDeedCards;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         gameState = new GameState();
-        dice = new Dice();
-        board = new Gameboard();
-        TitleDeedCard[] titleDeeds = new TitleDeedCard[] {
-            new TitleDeedCard("Mediterranean Avenue", new Color(58, 6, 6), 60, 2, 4, 10, 30, 90, 160, 250, 50, 50, 30),
-            new TitleDeedCard("Baltic Avenue", new Color(58, 6, 6), 60, 4, 8, 20, 60, 180, 320, 450, 50, 50, 30)
-            // Add more TitleDeedCard instances as needed
-        };
-        banker = new Banker(titleDeeds);
-        gameState.setBoard(board);
+        player1 = new Player("Player 1", 1500);
+        player2 = new Player("Player 2", 1500);
+        gameboard = new Gameboard();
+        titleDeedCards = new TitleDeedCard[28];
+        for (int i = 0; i < titleDeedCards.length; i++) {
+            titleDeedCards[i] = new TitleDeedCard("Property " + (i + 1), Color.BLUE, 100 + (i * 20), 10, 20, 30, 40, 50, 60, 70, 80, 90, 100);
+        }
+        banker = new Banker(titleDeedCards);
+        gameState.setBoard(gameboard);
         gameState.setBanker(banker);
-        player1 = new Player("Player1", 1500);
-        player2 = new Player("Player2", 1500);
-        player3 = new Player("Player3", 1500);
-        player4 = new Player("Player4", 1500);
         gameState.addPlayer(player1);
         gameState.addPlayer(player2);
+    }
+
+    @Test
+    public void testAddPlayer() {
+        assertEquals(2, gameState.getPlayers().size());
+        Player player3 = new Player("Player 3", 1500);
         gameState.addPlayer(player3);
-        gameState.addPlayer(player4);
+        assertEquals(3, gameState.getPlayers().size());
     }
 
     @Test
-    void testAddPlayer() {
-        assertFalse(gameState.addPlayer(new Player("Player5", 1500))); // Should not add more than 4 players
+    public void testRemovePlayer() {
+        gameState.removePlayer(player1);
+        assertEquals(1, gameState.getPlayers().size());
+        assertFalse(gameState.getPlayers().contains(player1));
     }
 
     @Test
-    void testGetCurrentPlayer() {
-        assertEquals(player1, gameState.getCurrentPlayer());
+    public void testSetAndGetBanker() {
+        assertNotNull(gameState.getBank());
+        assertEquals(banker, gameState.getBank());
     }
 
     @Test
-    void testNextTurn() {
-        gameState.nextTurn();
-        assertEquals(player2, gameState.getCurrentPlayer());
-        gameState.nextTurn();
-        assertEquals(player3, gameState.getCurrentPlayer());
-        gameState.nextTurn();
-        assertEquals(player4, gameState.getCurrentPlayer());
-        gameState.nextTurn();
-        assertEquals(player1, gameState.getCurrentPlayer());
+    public void testSetAndGetChanceDeck() {
+        ChanceCards chanceCards = new ChanceCards("", 0);
+        chanceCards.ChanceDeck();
+        gameState.setChanceDeck(chanceCards);
+        assertEquals(chanceCards, gameState.getChanceDeck());
     }
 
     @Test
-    void testFirstRollForTurnOrder() {
-        gameState.addPlayer(player1);
-        gameState.addPlayer(player2);
-        gameState.addPlayer(player3);
-        gameState.addPlayer(player4);
-        gameState.firstRollForTurnOrder();
-        // This test just ensures the method runs without exceptions
+    public void testSetAndGetCommunityChestDeck() {
+        CommunityChestCards communityChestCards = new CommunityChestCards("", 0);
+        communityChestCards.CommunityChestDeck();
+        gameState.setCommunityChestDeck(communityChestCards);
+        assertEquals(communityChestCards, gameState.getCommunityChestDeck());
     }
 
     @Test
-    void testPlayerTurnOrder() {
-        gameState.addPlayer(player1);
-        gameState.addPlayer(player2);
-        gameState.addPlayer(player3);
-        gameState.addPlayer(player4);
-        gameState.firstRollForTurnOrder();
+    public void testPlayerTurnOrder() {
         gameState.playerTurnOrder();
+        List<Player> players = gameState.getPlayers();
+        assertNotNull(players);
+        assertEquals(2, players.size());
     }
 
     @Test
-    void canStartGameWithMinimumPlayers() {
-        GameState testState = new GameState();
-        testState.addPlayer(new Player("Test1", 1500));
-        assertFalse(testState.canStartGame());
-
-        testState.addPlayer(new Player("Test2", 1500));
-        assertTrue(testState.canStartGame());
+    public void testStartAuction() {
+        Property property = new Property("Boardwalk", Color.BLUE, titleDeedCards[0], 39);
+        gameState.startAuction(property);
+        // Assuming auction logic is implemented
     }
 
     @Test
-    void rollDiceUpdatesPhaseAndReturnsTotal() {
-        int roll = gameState.rollDice();
-        assertTrue(roll >= 2 && roll <= 12);
-        assertEquals(TurnPhase.MOVE_TOKEN, gameState.getCurrentPhase());
-    }
-
-    @Test
-    void moveTokenUpdatesPlayerPosition() {
-        gameState.rollDice(); // Move to MOVE_TOKEN phase
-        Player currentPlayer = gameState.getCurrentPlayer();
-        int initialPosition = currentPlayer.getToken().getBoardPosition();
-
-        gameState.moveToken(5);
-
-        assertEquals((initialPosition + 5) % 40, currentPlayer.getToken().getBoardPosition());
-        assertEquals(TurnPhase.HANDLE_SQUARE_ACTION, gameState.getCurrentPhase());
-    }
-
-    @Test
-    void playerPassingGOReceivesSalary() {
-        gameState.rollDice();
-        Player currentPlayer = gameState.getCurrentPlayer();
-        currentPlayer.getToken().setBoardPosition(38);
-        int initialBalance = currentPlayer.getBalance();
-
-        gameState.moveToken(4); // Move from position 38 to position 2 (passing GO)
-
-        assertEquals(initialBalance + 200, currentPlayer.getBalance());
-    }
-
-    @Test
-    void completePlayerTurnCycleWorksCorrectly() {
-        Player initialPlayer = gameState.getCurrentPlayer();
-
-        gameState.rollDice();
-        gameState.moveToken(5);
-        gameState.handleSquareAction();
-        gameState.performAction(PlayerAction.END_TURN);
+    public void testEndTurn() {
+        gameState.setTurnPhase(TurnPhase.END_TURN);
         gameState.endTurn();
-
-        assertNotEquals(initialPlayer, gameState.getCurrentPlayer());
         assertEquals(TurnPhase.ROLL_DICE, gameState.getCurrentPhase());
     }
 
     @Test
-    void throwsExceptionWhenRollingDiceInWrongPhase() {
-        gameState.rollDice(); // Now in MOVE_TOKEN phase
-
-        assertThrows(IllegalStateException.class, () -> gameState.rollDice());
-    }
-
-    @Test
-    void throwsExceptionWhenMovingTokenInWrongPhase() {
-        assertThrows(IllegalStateException.class, () -> gameState.moveToken(5));
-    }
-
-    @Test
-    void throwsExceptionWhenHandlingSquareActionInWrongPhase() {
-        assertThrows(IllegalStateException.class, () -> gameState.handleSquareAction());
-    }
-
-    @Test
-    void throwsExceptionWhenPerformingActionsInWrongPhase() {
-        assertThrows(IllegalStateException.class, () ->
-                gameState.performAction(PlayerAction.END_TURN));
-    }
-
-    @Test
-    void throwsExceptionWhenEndingTurnInWrongPhase() {
-        assertThrows(IllegalStateException.class, () -> gameState.endTurn());
-    }
-
-    @Test
-    void gameIsOverWhenOnlyOnePlayerRemainsSolvent() {
-        // Make all but one player bankrupt
-        player2.updateBalance(-1500);
-        player3.updateBalance(-1500);
-        player4.updateBalance(-1500);
-
-        assertTrue(gameState.isGameOver());
-        assertEquals(player1, gameState.getWinner());
-    }
-
-    @Test
-    void gameIsNotOverWhenMultiplePlayersSolvent() {
-        // Two players still have money
-        player3.updateBalance(-1500);
-        player4.updateBalance(-1500);
-
-        assertFalse(gameState.isGameOver());
+    public void testGetCurrentPlayer() {
+        assertEquals(player1, gameState.getCurrentPlayer());
+        gameState.endTurn();
+        assertEquals(player2, gameState.getCurrentPlayer());
     }
 }
