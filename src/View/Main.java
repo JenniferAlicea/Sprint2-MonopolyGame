@@ -5,6 +5,7 @@ Course: CSCI 234 - Intro to Software Engineering
 package View;
 
 import Model.*;
+
 import java.util.Scanner;
 
 public class Main {
@@ -35,6 +36,11 @@ public class Main {
         player2.setToken(new Token(TokenIcons.BATTLESHIP, player2));
         player3.setToken(new Token(TokenIcons.THIMBLE, player3));
         player4.setToken(new Token(TokenIcons.TOP_HAT, player4));
+
+        System.out.println("\n=== PLAYER TOKENS ===");
+        for (Player player : gameState.getPlayers()) {
+            System.out.println(player.getName() + ": " + player.getToken().getTokenType());
+        }
 
         System.out.println("\n=== DETERMINING PLAYER ORDER ===");
         for (Player player : gameState.getPlayers()) {
@@ -257,7 +263,7 @@ public class Main {
     private static void demoAuction(GameState gameState) {
         for (Player bidder : gameState.getPlayers()) {
             if (Math.random() > 0.4) {
-                int bidAmount = (int)(bidder.getBalance() * 0.1) + 10;
+                int bidAmount = (int) (bidder.getBalance() * 0.1) + 10;
                 System.out.println(bidder.getName() + " bids $" + bidAmount);
                 gameState.processAuctionTurn(bidder, true, bidAmount);
             } else {
@@ -274,7 +280,7 @@ public class Main {
             String name = "Property " + (i + 1);
             java.awt.Color color = java.awt.Color.BLUE;
             int price = 100 + (i * 20);
-            cards[i] = new TitleDeedCard(name, color, price, i, i*2, i*5, i*15, i*30, i*45, i*60, 50, 50, price/2);
+            cards[i] = new TitleDeedCard(name, color, price, i, i * 2, i * 5, i * 15, i * 30, i * 45, i * 60, 50, 50, price / 2);
         }
 
         return cards;

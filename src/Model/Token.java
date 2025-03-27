@@ -60,6 +60,10 @@ public class Token{
         return icon;
     }
 
+    public TokenIcons getTokenType() {
+        return type;
+    }
+
     /**
      * This method returns the owner of the token
      * @return the owner of the token
