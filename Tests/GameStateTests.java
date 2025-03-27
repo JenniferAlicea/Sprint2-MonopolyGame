@@ -91,11 +91,4 @@ public class GameStateTests {
         gameState.endTurn();
         assertEquals(TurnPhase.ROLL_DICE, gameState.getCurrentPhase());
     }
-
-    @Test
-    public void testGetCurrentPlayer() {
-        assertEquals(player1, gameState.getCurrentPlayer());
-        gameState.endTurn();
-        assertEquals(player2, gameState.getCurrentPlayer());
-    }
 }

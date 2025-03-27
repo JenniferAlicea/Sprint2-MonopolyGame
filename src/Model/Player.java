@@ -60,13 +60,6 @@ public class Player {
 
     }
 
-    public void setMonopolyPlayers(List<Player> monopolyPlayers) {
-        this.monopolyPlayers = monopolyPlayers;
-    }
-
-    public List<Player> getMonopolyPlayers() {
-        return monopolyPlayers;
-    }
 
     /**
      * check if a player has a monopoly from the properties they own
@@ -231,34 +224,6 @@ public class Player {
         mortgagedProperties.remove(property);
     }
 
-
-    /**
-     * Mortgages a railroad for the player
-     *
-     * @param railroad the railroad to mortgage
-     */
-    public void mortgageRailroad(Railroad railroad) {
-        if (ownedRailroads.contains(railroad) && !mortgagedRailroads.contains(railroad)) {
-            mortgagedRailroads.add(railroad);
-            ownedRailroads.remove(railroad);
-            updateBalance(railroad.getMortgageValue());
-        }
-    }
-
-
-    /**
-     * Mortgages a utility for the player
-     *
-     * @param utility the utility to mortgage
-     */
-    public void mortgageUtility(Utility utility) {
-        if (ownedUtilities.contains(utility) && !mortgagedUtilities.contains(utility)) {
-            mortgagedUtilities.add(utility);
-            ownedUtilities.remove(utility);
-            updateBalance(utility.getMortgageValue());
-        }
-    }
-
     /**
      * Gets the list of mortgaged properties for the player
      *
@@ -278,17 +243,6 @@ public class Player {
     }
 
     /**
-     * Gets the list of mortgaged railroads for the player
-     *
-     * @return the list of mortgaged railroads
-     */
-
-    public List<Railroad> getMortgagedRailroads() {
-        return mortgagedRailroads;
-
-    }
-
-    /**
      * Gets the list of owned railroads for the player
      *
      * @return the list of owned railroads
@@ -299,16 +253,7 @@ public class Player {
 
     }
 
-    /**
-     * Gets the list of mortgaged utilities for the player
-     *
-     * @return the list of mortgaged utilities
-     */
 
-    public List<Utility> getMortgagedUtilities() {
-        return mortgagedUtilities;
-
-    }
 
     /**
      * Gets the list of owned utilities for the player

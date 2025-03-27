@@ -490,4 +490,7 @@ public class GameState {
     }
 
 
+    public void removePlayer(Player player) {
+        players.remove(player);
+    }
 }

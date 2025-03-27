@@ -95,6 +95,10 @@ public class Property extends BoardSquare {
     public void addHouse() {
         if (houses < 4) houses++;
     }
+
+    public boolean hasHotel() {
+        return hasHotel;
+    }
     
     public void addHotel() {
         if (houses == 4) {
