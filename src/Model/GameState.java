@@ -648,4 +648,10 @@ public class GameState {
     public void removePlayer(Player player) {
         players.remove(player);
     }
+
+    public void setCurrentPlayer(Player player) {
+        currentPlayerIndex = players.indexOf(player);
+
+    }
+
 }

@@ -102,6 +102,10 @@ public class Property extends BoardSquare {
             hasHotel = true;
         }
     }
+
+    public boolean hasHotel() {
+        return hasHotel;
+    }
     
     public String getGroup() {
         return color.toString();

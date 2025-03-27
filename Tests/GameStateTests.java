@@ -67,6 +67,19 @@ public class GameStateTests {
     }
 
     @Test
+    public void testSetAndGetCurrentPlayer() {
+        gameState.setCurrentPlayer(player1);
+        assertEquals(player1, gameState.getCurrentPlayer());
+    }
+
+
+    @Test
+    public void testTurnPhase() {
+        gameState.setTurnPhase(TurnPhase.ROLL_DICE);
+        assertEquals(TurnPhase.ROLL_DICE, gameState.getCurrentPhase());
+    }
+
+    @Test
     public void testSetAndGetCommunityChestDeck() {
         CommunityChestCards communityChestCards = new CommunityChestCards("", 0);
         communityChestCards.CommunityChestDeck();
@@ -86,7 +99,6 @@ public class GameStateTests {
     public void testStartAuction() {
         Property property = new Property("Boardwalk", Color.BLUE, titleDeedCards[0], 39);
         gameState.startAuction(property);
-        // Assuming auction logic is implemented
     }
 
     @Test
@@ -95,4 +107,5 @@ public class GameStateTests {
         gameState.endTurn();
         assertEquals(TurnPhase.ROLL_DICE, gameState.getCurrentPhase());
     }
+
 }
