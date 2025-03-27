@@ -19,6 +19,9 @@ public class BankerTests {
         banker = new Banker(emptyCards);
     }
 
+    /**
+     * Test to verify the balance of the banker.
+     */
     @Test
     void testUpdateBalance() {
         Player player = new Player("TestPlayer", 1500);
