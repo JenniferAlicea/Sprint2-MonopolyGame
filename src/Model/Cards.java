@@ -1,3 +1,7 @@
+/*
+Authors: Anthony Dayoub, Angel Lopez, Amanda McNesby, and Jennifer Alicea
+Course: CSCI 234 - Intro to Software Engineering
+ */
 package Model;
 
 public abstract class Cards {

@@ -1,3 +1,7 @@
+/*
+Authors: Anthony Dayoub, Angel Lopez, Amanda McNesby, and Jennifer Alicea
+Course: CSCI 234 - Intro to Software Engineering
+ */
 package Model;
 
 import java.util.List;
@@ -11,8 +15,8 @@ public class CommunityChestCardSpace extends BoardSquare {
 
     @Override
     public void landedOn(Player player, GameState gameState) {
-        String card = communityChestCards.drawCard();
-        communityChestCards.applyEffect(player);
-        System.out.println(player.getName() + " drew a Community Chest card: " + card);
+        String cardDescription = gameState.getCommunityChestDeck().drawCard();
+        System.out.println("Drew Community Chest card: " + cardDescription);
+        gameState.getCommunityChestDeck().applyEffect(player);
     }
 }

@@ -16,12 +16,15 @@ public class GameState {
     private Player highestBidder;
     private boolean auctionInProgress = false;
     private List<Player> remainingBidders;
+    private ChanceCards chanceDeck;
+    private CommunityChestCards communityChestDeck;
 
 
     public GameState() {
         players = new ArrayList<>();
         currentPlayerIndex = 0;
         currentPhase = TurnPhase.ROLL_DICE;
+
 
     }
 
@@ -49,6 +52,22 @@ public class GameState {
 
     public void setTurnPhase(TurnPhase phase) {
         currentPhase = phase;
+    }
+
+    public void setChanceDeck(ChanceCards chanceDeck) {
+        this.chanceDeck = chanceDeck;
+    }
+
+    public void setCommunityChestDeck(CommunityChestCards communityChestDeck) {
+        this.communityChestDeck = communityChestDeck;
+    }
+
+    public ChanceCards getChanceDeck() {
+        return chanceDeck;
+    }
+
+    public CommunityChestCards getCommunityChestDeck() {
+        return communityChestDeck;
     }
 
 

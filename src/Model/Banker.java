@@ -1,10 +1,7 @@
 /*
- * The Banker class is responsible for managing the bank's assets and performing banking operations.
- * This includes updating player balances, auctioning properties, selling houses and hotels, and
- * loaning money to players. The Banker class also keeps track of the number of houses and hotels
- * available for sale.
+Authors: Anthony Dayoub, Angel Lopez, Amanda McNesby, and Jennifer Alicea
+Course: CSCI 234 - Intro to Software Engineering
  */
-
 package Model;
 
 public class Banker {

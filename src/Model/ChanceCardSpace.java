@@ -1,3 +1,7 @@
+/*
+Authors: Anthony Dayoub, Angel Lopez, Amanda McNesby, and Jennifer Alicea
+Course: CSCI 234 - Intro to Software Engineering
+ */
 package Model;
 
 import java.util.List;
@@ -10,14 +14,13 @@ public class ChanceCardSpace extends BoardSquare {
         super(name, position);
     }
 
-    public void landOn(Player player) {
-        String cardDescription = chanceCards.drawCard();
-        chanceCards.applyEffect(player);
-        System.out.println(player.getName() + " drew a Chance card: " + cardDescription);
-    }
 
     @Override
     public void landedOn(Player player, GameState gameState) {
-        landOn(player);
+
+        String cardDescription = gameState.getChanceDeck().drawCard();
+        System.out.println("Drew Chance card: " + cardDescription);
+        gameState.getChanceDeck().applyEffect(player);
+
     }
 }
