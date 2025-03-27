@@ -17,10 +17,12 @@ public class GameState {
     private boolean auctionInProgress = false;
     private List<Player> remainingBidders;
 
+
     public GameState() {
         players = new ArrayList<>();
         currentPlayerIndex = 0;
         currentPhase = TurnPhase.ROLL_DICE;
+
     }
 
     public boolean addPlayer(Player player) {
@@ -44,6 +46,11 @@ public class GameState {
     public void nextTurn() {
         currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
     }
+
+    public void setTurnPhase(TurnPhase phase) {
+        currentPhase = phase;
+    }
+
 
     public void setBanker(Banker banker) {
         this.banker = banker;
@@ -109,6 +116,7 @@ public class GameState {
 
         currentPhase = TurnPhase.PLAYER_ACTIONS;
     }
+
 
     // Offer property purchase to current player
     public void offerPropertyPurchase(Property property) {
@@ -176,8 +184,10 @@ public class GameState {
             throw new IllegalStateException("Not in end turn phase");
         }
 
-        nextTurn();
+
+
         currentPhase = TurnPhase.ROLL_DICE;
+        nextTurn();
     }
 
     // Action implementation methods

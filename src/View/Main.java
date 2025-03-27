@@ -240,6 +240,7 @@ public class Main {
                 }
 
                 // PHASE 5: End turn
+
                 System.out.println("\nEnding turn...");
 
                 // Check if player is bankrupt
@@ -247,7 +248,7 @@ public class Main {
                     System.out.println(currentPlayer.getName() + " is bankrupt!");
                     // Handle bankruptcy - in a real game this would be more complex
                 }
-
+                gameState.setTurnPhase(TurnPhase.END_TURN);
                 gameState.endTurn();
 
                 // Pause for readability
