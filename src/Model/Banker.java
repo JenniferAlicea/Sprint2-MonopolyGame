@@ -1,3 +1,10 @@
+/*
+ * The Banker class is responsible for managing the bank's assets and performing banking operations.
+ * This includes updating player balances, auctioning properties, selling houses and hotels, and
+ * loaning money to players. The Banker class also keeps track of the number of houses and hotels
+ * available for sale.
+ */
+
 package Model;
 
 public class Banker {
@@ -11,6 +18,7 @@ public class Banker {
 
     /**
      * Updates the player's balance and performs banking operations
+     *
      * @param player The player whose balance will be updated
      * @param amount The amount to add (positive) or deduct (negative)
      * @param reason Description of the transaction for logging purposes
@@ -25,11 +33,22 @@ public class Banker {
                 Math.abs(amount));
     }
 
+    /**
+     * Auctions a property to the players
+     *
+     * @param property The property to be auctioned
+     */
     public void auctionProperty(BoardSquare property) {
         // Auction logic to be implemented
         System.out.println("Auctioning property: " + property.getName());
     }
 
+    /**
+     * Sells a property to a player
+     *
+     * @param property The property to be sold
+     * @param player   The player who is buying the property
+     */
     public void sellProperty(BoardSquare property, Player player) {
         if (property instanceof Property) {
             Property prop = (Property) property;
@@ -43,10 +62,20 @@ public class Banker {
         }
     }
 
+    /**
+     * Pays the player a salary for passing GO
+     *
+     * @param player The player who passed GO
+     */
     public void paySalary(Player player) {
         updateBalance(player, 200, "Passed GO");
     }
 
+    /**
+     * Sells a house to a player
+     *
+     * @param player The player who is buying the house
+     */
     public void sellHouse(Player player) {
         if (houses > 0) {
             houses--;
@@ -57,6 +86,11 @@ public class Banker {
         }
     }
 
+    /**
+     * Sells a hotel to a player
+     *
+     * @param player The player who is buying the hotel
+     */
     public void sellHotel(Player player) {
         if (hotels > 0) {
             hotels--;
@@ -67,33 +101,63 @@ public class Banker {
         }
     }
 
+    /**
+     * Auctions a property to the players
+     *
+     * @param property  The property to be auctioned
+     * @param gameState The current game state
+     */
     public void auctionProperty(BoardSquare property, GameState gameState) {
-    if (property instanceof Property || property instanceof Railroad || property instanceof Utility) {
-        System.out.println("The banker is auctioning " + property.getName());
-        gameState.startAuction(property);
+        if (property instanceof Property || property instanceof Railroad || property instanceof Utility) {
+            System.out.println("The banker is auctioning " + property.getName());
+            gameState.startAuction(property);
+        }
     }
-}
 
+    /**
+     * Loans money to a player
+     *
+     * @param player The player who is receiving the loan
+     * @param amount The amount of the loan
+     */
     public void loanMoney(Player player, int amount) {
         updateBalance(player, amount, "Bank loan");
     }
 
+    /**
+     * Collects the mortgage from a player
+     *
+     * @param player   The player who is paying the mortgage
+     * @param property The property being mortgaged
+     */
     public void collectMortgage(Player player, Property property) {
         updateBalance(player, property.getMortgageValue(), "Mortgage: " + property.getName());
     }
 
+    /**
+     * Buys back a house from the bank
+     */
     public int getHousesAvailable() {
         return houses;
     }
 
+    /**
+     * Buys back a hotel from the bank
+     */
     public int getHotelsAvailable() {
         return hotels;
     }
 
+    /**
+     * Buys back a house from the bank
+     */
     public void buyBackHouse() {
         houses++;
     }
 
+    /**
+     * Buys back a hotel from the bank
+     */
     public void buyBackHotel() {
         hotels++;
     }
