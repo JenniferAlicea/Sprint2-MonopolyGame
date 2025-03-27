@@ -1,3 +1,7 @@
+/*
+Authors: Anthony Dayoub, Angel Lopez, Amanda McNesby, and Jennifer Alicea
+Course: CSCI 234 - Intro to Software Engineering
+ */
 import Model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
