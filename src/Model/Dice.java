@@ -16,6 +16,9 @@ public class Dice {
     private static boolean isDouble;
     private static int totalDoubles = 0;
 
+    /**
+     * Constructor for the Dice class
+     */
     public Dice() {
         this.random = new Random();
         roll(); // Initialize dice with a roll

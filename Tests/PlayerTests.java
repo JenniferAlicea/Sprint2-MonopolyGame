@@ -2,10 +2,7 @@
 Authors: Anthony Dayoub, Angel Lopez, Amanda McNesby, and Jennifer Alicea
 Course: CSCI 234 - Intro to Software Engineering
  */
-import Model.Player;
-import Model.Property;
-import Model.Token;
-import Model.TokenIcons;
+import Model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -93,9 +90,9 @@ public class PlayerTests {
      */
     @Test
     public void testHasLightBlueMonopoly() {
-        player.getOwnedProperties().add(new Property("Connecticut Avenue", LightBlue));
-        player.getOwnedProperties().add(new Property("Vermont Avenue", LightBlue));
-        player.getOwnedProperties().add(new Property("Oriental Avenue", LightBlue));
+        player.getOwnedProperties().add(new Property("Connecticut Avenue", LightBlue, new TitleDeedCard("Connecticut Avenue", LightBlue, 120, 8, 16, 40, 100, 300, 450, 600, 50, 50, 30), 1));
+        player.getOwnedProperties().add(new Property("Vermont Avenue", LightBlue, new TitleDeedCard("Vermont Avenue", LightBlue, 100, 6, 12, 30, 90, 270, 400, 550, 50, 50, 50), 1));
+        player.getOwnedProperties().add(new Property("Oriental Avenue", LightBlue, new TitleDeedCard("Oriental Avenue", LightBlue, 100, 6, 12, 30, 90, 270, 400, 550, 50, 50, 50), 1));
         player.checkMonopoly();
         assertEquals(true, player.monopolies.get(LightBlue));
         assertEquals(false, player.monopolies.get(Color.GREEN));

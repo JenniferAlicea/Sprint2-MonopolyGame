@@ -4,82 +4,49 @@ Course: CSCI 234 - Intro to Software Engineering
  */
 package Model;
 
-
-public class BoardSquare {
+public abstract class BoardSquare {
     protected String name;
     protected int position;
+    protected Player owner;
 
     /**
-     * Constructor for the BoardSquare class
-     *
-     * @param name the name of the board square
-     * @param i
+     * This constructor creates a new BoardSquare object
+     * @param name
+     * @param position
      */
-    public BoardSquare(String name, int i) {
+    public BoardSquare(String name, int position) {
         this.name = name;
-        this.position = 0;
+        this.position = position;
     }
 
+
     /**
-     * Returns the name of the board square
-     * @return the name of the board square
+     * This method returns the name of the square
+     * @return the name of the square
      */
     public String getName() {
         return name;
     }
 
     /**
-     * Executes the strategy of the board square
+     * This method returns the position of the square
+     * @return the position of the square
      */
-    public void executeStrategy() {
-    }
-
-    /**
-     * Handles the go action of the board square
-     * @param player the player to handle the action for
-     */
-    private void handleGo(Player player) {
-        int salary = 200;
-        player.updateBalance(salary);
-    }
-
-    /**
-     * Handles the jail action of the board square
-     * @param player the player to handle the action for
-     */
-    private void handleJail(Player player) {
-        player.isVisitingJail();
-    }
-
-    /**
-     * Handles the free parking action of the board square
-     * @param player the player to handle the action for
-     */
-    private void handleFreeParking(Player player) {
-        player.updateBalance(0);
-    }
-
-
-    // Go to Jail is a special case where the player is sent to jail
-    private void handleGoToJail(Player player) {
-        player.sendToJail();
-    }
-
-
-
-    public void setSpacePosition(int i) {
-        this.position = i;
-    }
-
-
-    public void setSpaceName(String name) {
-        this.name = name;
-    }
-
     public int getPosition() {
         return position;
     }
+    /**
+     * This method is called when a player lands on this square
+     * @param player the player that landed on this square
+     * @param gameState the current state of the game
+     */
+    public abstract void landedOn(Player player, GameState gameState);
+
+    /**
+     * This method sets the owner of the square
+     * @return player that owns the square
+     */
+    public Player getOwner() {
+        return owner;
+    }
 }
-
-
-
