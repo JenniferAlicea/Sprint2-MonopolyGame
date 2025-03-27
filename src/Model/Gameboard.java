@@ -163,21 +163,38 @@ public class Gameboard {
         squares.add(new Property("Boardwalk", DarkBlue, boardwalk, 39));
     }
 
+    /**
+     * This method places a Chance card in the Chance deck
+     * @param card the card to be placed
+     */
     public void placeChanceCard(ChanceCards card) {
         chanceCards.add(card);
     }
 
+    /**
+     * This method places a Community Chest card in the Community Chest deck
+     * @param card the card to be placed
+     */
     public void placeCommunityChestCard(CommunityChestCards card) {
         communityChestCards.add(card);
     }
 
 
+    /**
+     * This method returns the list of squares on the board
+     * @return the list of squares on the board
+     */
     public List<BoardSquare> getSquares() {
         return squares;
     }
 
 
-
+    /**
+     * This method moves the player a certain number of spaces
+     * @param player
+     * @param steps
+     * @return
+     */
     public int getSpacesMoved(Player player, int steps) {
         int newPosition = (player.getBoardPosition() + steps) % squares.size();
         player.setBoardPosition(newPosition);
@@ -185,6 +202,11 @@ public class Gameboard {
     }
 
 
+    /**
+     * This method returns the square at a certain position
+     * @param position the position of the square
+     * @return the square at the position
+     */
     public BoardSquare getSquare(int position) {
         return squares.get(position);
     }

@@ -4,6 +4,9 @@ Course: CSCI 234 - Intro to Software Engineering
  */
 package Model;
 
+/**
+ * This enum represents the different phases of a player's turn
+ */
 public enum TurnPhase {
     ROLL_DICE,
     MOVE_TOKEN,

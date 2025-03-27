@@ -4,6 +4,9 @@ Course: CSCI 234 - Intro to Software Engineering
  */
 package Model;
 
+/**
+ * This enum represents the different actions a player can take during their turn
+ */
 public enum PlayerAction {
     BUY_PROPERTY,
     AUCTION_PROPERTY,
