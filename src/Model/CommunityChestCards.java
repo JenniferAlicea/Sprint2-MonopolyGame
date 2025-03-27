@@ -14,10 +14,18 @@ public class CommunityChestCards extends Cards {
     private List<CommunityChestCards> discardedCommunityChestCards = new ArrayList<>();
     private Random random = new Random();
 
+    /**
+     * Constructor for the CommunityChestCards class
+     * @param description
+     * @param effect
+     */
     public CommunityChestCards(String description, int effect) {
         super(description, effect);
     }
 
+    /**
+     * This method creates the Community Chest deck
+     */
     public void CommunityChestDeck() {
         toBeDisplayedCommunityChestCards.add(new CommunityChestCards("Bank error in your favor – Collect $200", 200));
         toBeDisplayedCommunityChestCards.add(new CommunityChestCards("Doctor's fees – Pay $50", -50));
@@ -37,6 +45,10 @@ public class CommunityChestCards extends Cards {
         toBeDisplayedCommunityChestCards.add(new CommunityChestCards("Advance to Go (Collect $200)", 200));
     }
 
+    /**
+     * This method draws a card from the Community Chest deck
+     * @return the description of the card
+     */
     public String drawCard() {
         CommunityChestCards drawnCard = toBeDisplayedCommunityChestCards.get(random.nextInt(toBeDisplayedCommunityChestCards.size()));
         toBeDisplayedCommunityChestCards.remove(drawnCard);

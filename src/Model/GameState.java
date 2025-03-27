@@ -20,6 +20,9 @@ public class GameState {
     private CommunityChestCards communityChestDeck;
 
 
+    /**
+     * Constructor for the GameState class
+     */
     public GameState() {
         players = new ArrayList<>();
         currentPlayerIndex = 0;
@@ -28,6 +31,11 @@ public class GameState {
 
     }
 
+    /**
+     * This method adds a player to the game
+     * @param player the player to be added
+     * @return true if the player was added, false otherwise
+     */
     public boolean addPlayer(Player player) {
         if (players.size() < MAX_PLAYERS) {
             players.add(player);
@@ -38,47 +46,87 @@ public class GameState {
         }
     }
 
+    /**
+     * This method checks if the game can start
+     * @return true if the game can start, false otherwise
+     */
     public boolean canStartGame() {
         return players.size() >= MIN_PLAYERS;
     }
 
+    /**
+     * This method gets the current player
+     * @return the current player
+     */
     public Player getCurrentPlayer() {
         return players.get(currentPlayerIndex);
     }
 
+    /**
+     * this method gets the next player in the list
+     */
     public void nextTurn() {
         currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
     }
 
+    /**
+     * This method sets the current phase of the game
+     * @param phase the phase to be set
+     */
     public void setTurnPhase(TurnPhase phase) {
         currentPhase = phase;
     }
 
+    /**
+     * this method sets the chance deck
+     */
     public void setChanceDeck(ChanceCards chanceDeck) {
         this.chanceDeck = chanceDeck;
     }
-
+    /**
+     * this method sets the community chest deck
+     */
     public void setCommunityChestDeck(CommunityChestCards communityChestDeck) {
         this.communityChestDeck = communityChestDeck;
     }
 
+    /**
+     * this method returns the chance deck
+     * @return the chance deck
+     */
     public ChanceCards getChanceDeck() {
         return chanceDeck;
     }
 
+    /**
+     * this method returns the community chest deck
+     * @return the community chest deck
+     */
     public CommunityChestCards getCommunityChestDeck() {
         return communityChestDeck;
     }
 
 
+    /**
+     * This method sets the banker
+     * @param banker
+     */
     public void setBanker(Banker banker) {
         this.banker = banker;
     }
 
+    /**
+     * This method sets the game board
+     * @param board
+     */
     public void setBoard(Gameboard board) {
         this.board = board;
     }
 
+    /**
+     * this method rolls the dice
+     * @return the total of the dice roll
+     */
     // STEP 1: Roll Dice
     public int rollDice() {
         if (currentPhase != TurnPhase.ROLL_DICE) {
@@ -93,6 +141,10 @@ public class GameState {
         return roll;
     }
 
+    /**
+     * this method moves the token
+     * @param spaces the number of spaces to move the token
+     */
     // STEP 2: Move Token
     public void moveToken(int spaces) {
         if (currentPhase != TurnPhase.MOVE_TOKEN) {
@@ -120,6 +172,9 @@ public class GameState {
         currentPhase = TurnPhase.HANDLE_SQUARE_ACTION;
     }
 
+    /**
+     * this method handles the square action
+     */
     // STEP 3: Handle Square Action
     public void handleSquareAction() {
         if (currentPhase != TurnPhase.HANDLE_SQUARE_ACTION) {
@@ -136,7 +191,10 @@ public class GameState {
         currentPhase = TurnPhase.PLAYER_ACTIONS;
     }
 
-
+    /**
+     * this method offers property purchase to the current player
+     * @param property the property to be offered
+     */
     // Offer property purchase to current player
     public void offerPropertyPurchase(Property property) {
         // This method would be expanded to interact with UI
@@ -144,6 +202,12 @@ public class GameState {
         // Player can choose to buy via performAction(PlayerAction.BUY_PROPERTY, property)
         // Or auction via performAction(PlayerAction.AUCTION_PROPERTY, property)
     }
+
+    /**
+     * this method performs an action
+     * @param action the action to be performed
+     * @param params the parameters for the action
+     */
 
     // STEP 4: Player Actions
     public void performAction(PlayerAction action, Object... params) {
@@ -197,6 +261,9 @@ public class GameState {
         }
     }
 
+    /**
+     * this method ends the turn
+     */
     // STEP 5: End Turn
     public void endTurn() {
         if (currentPhase != TurnPhase.END_TURN) {
@@ -209,6 +276,11 @@ public class GameState {
         nextTurn();
     }
 
+    /**
+     * this method buys a property
+     * @param player
+     * @param property
+     */
     // Action implementation methods
     private void buyProperty(Player player, Property property) {
         if (property.getOwner() == null && player.getBalance() >= property.getPrice()) {
@@ -223,6 +295,11 @@ public class GameState {
         }
     }
 
+    /**
+     * this method builds a house
+     * @param player
+     * @param property
+     */
     private void buildHouse(Player player, Property property) {
         if (property.getOwner() == player && player.getMonopolies().get(property.getColor())) {
             int houseCost = property.getPrice() / 2; // Simplified house cost
@@ -236,7 +313,11 @@ public class GameState {
             }
         }
     }
-
+    /**
+     * this method builds a hotel
+     * @param player
+     * @param property
+     */
     private void buildHotel(Player player, Property property) {
         if (property.getOwner() == player && property.getHouses() == 4) {
             int hotelCost = property.getPrice() / 2; // Simplified hotel cost
@@ -252,6 +333,11 @@ public class GameState {
     }
 
 
+    /**
+     * this method mortgages a property
+     * @param player
+     * @param property
+     */
     private void mortgageProperty(Player player, Property property) {
         if (property.getOwner() == player && !property.isMortgaged()) {
             property.setMortgaged(true);
@@ -271,6 +357,12 @@ public class GameState {
         }
     }
 
+    /**
+     * this method trades a property
+     * @param player
+     * @param otherPlayer
+     * @param property
+     */
     private void trade(Player player, Player otherPlayer, Property property) {
         // Trade logic would be implemented here
         // Simple version: if other player owns property, transfer it
@@ -284,6 +376,10 @@ public class GameState {
         }
     }
 
+    /**
+     * this method starts an auction
+     * @param property
+     */
     public void startAuction(BoardSquare property) {
         if (auctionInProgress) {
             return;
@@ -302,6 +398,9 @@ public class GameState {
     }
 
 
+    /**
+     * this method determines the turn order
+     */
     public void firstRollForTurnOrder() {
         for (Player player : players) {
             Dice.roll();
@@ -309,6 +408,11 @@ public class GameState {
         }
     }
 
+    /**
+     * this method places a bid for an auction
+     * @param player
+     * @param bidAmount
+     */
     public void placeBid(Player player, int bidAmount) {
         if (!auctionInProgress || !remainingBidders.contains(player)) {
             return;
@@ -329,6 +433,10 @@ public class GameState {
         System.out.println(player.getName() + " bids $" + currentBid);
     }
 
+    /**
+     * this method passes on an auction
+     * @param player
+     */
     public void passAuction(Player player) {
         if (!auctionInProgress || !remainingBidders.contains(player)) {
             return;
@@ -346,6 +454,9 @@ public class GameState {
         }
     }
 
+    /**
+     * this method completes an auction when it ends
+     */
     private void completeAuction() {
         if (!auctionInProgress) {
             return;
@@ -399,6 +510,11 @@ public class GameState {
         currentPhase = TurnPhase.PLAYER_ACTIONS; // Return to normal game flow
     }
 
+    /**
+     * this method gets the minimum price for a property
+     * @param property
+     * @return the minimum price
+     */
     private int getMinimumPrice(BoardSquare property) {
         if (property instanceof Property) {
             return ((Property) property).getPrice() / 2;
@@ -410,12 +526,18 @@ public class GameState {
         return 0;
     }
 
+    /**
+     * this method cancels an auction if nobody gets the property
+     */
     private void cancelAuction() {
         System.out.println("Auction canceled - no buyers for " + propertyUnderAuction.getName());
         resetAuction();
         currentPhase = TurnPhase.PLAYER_ACTIONS; // Return to normal game flow
     }
 
+    /**
+     * this method resets the auction
+     */
     private void resetAuction() {
         propertyUnderAuction = null;
         currentBid = 0;
@@ -424,6 +546,12 @@ public class GameState {
         remainingBidders = null;
     }
 
+    /**
+     * this method processes an auction turn
+     * @param player
+     * @param placeBid
+     * @param bidAmount
+     */
     // Add this method to handle the auction flow
     public void processAuctionTurn(Player player, boolean placeBid, int bidAmount) {
         if (!auctionInProgress || currentPhase != TurnPhase.AUCTION_PHASE) {
@@ -442,6 +570,9 @@ public class GameState {
         }
     }
 
+    /**
+     * this method sets the turn order for the players
+     */
     public void playerTurnOrder() {
         int max = 0;
         int index = 0;
@@ -454,18 +585,34 @@ public class GameState {
         currentPlayerIndex = index;
     }
 
+    /**
+     * this method gets the current phase of the game
+     * @return the current phase
+     */
     public TurnPhase getCurrentPhase() {
         return currentPhase;
     }
 
+    /**
+     * this method gets the players in the game
+     * @return the players
+     */
     public List<Player> getPlayers() {
         return players;
     }
 
+    /**
+     * this method gets the current player index/turn
+     * @return the current player index
+     */
     public int getCurrentPlayerIndex() {
         return currentPlayerIndex;
     }
 
+    /**
+     * this method determines if the game is over
+     * @return true if the game is over, false otherwise
+     */
     public boolean isGameOver() {
         int solventPlayers = 0;
         for (Player player : players) {
@@ -476,6 +623,10 @@ public class GameState {
         return solventPlayers <= 1;
     }
 
+    /**
+     * this method gets the winner of the game
+     * @return the winner
+     */
     public Player getWinner() {
         for (Player player : players) {
             if (player.getBalance() > 0) {
@@ -485,6 +636,10 @@ public class GameState {
         return null;
     }
 
+    /**
+     * this method gets the banker
+     * @return the banker
+     */
     public Banker getBank() {
         return banker;
     }
